@@ -1,0 +1,92 @@
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\ApplicationInsights.config
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\roslyn\csc.exe
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\roslyn\Microsoft.CodeAnalysis.dll
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\roslyn\Microsoft.CSharp.Core.targets
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\roslyn\Microsoft.VisualBasic.Core.targets
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\roslyn\System.Collections.Immutable.dll
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\roslyn\System.Reflection.Metadata.dll
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\roslyn\vbc.exe
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\roslyn\VBCSCompiler.exe
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\roslyn\VBCSCompiler.exe.config
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\Magic.dll.config
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\Magic.dll
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\Magic.pdb
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\EntityFramework.dll
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\EntityFramework.SqlServer.dll
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\Microsoft.AI.Agent.Intercept.dll
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\Microsoft.AI.DependencyCollector.dll
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\Microsoft.AI.PerfCounterCollector.dll
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\Microsoft.AI.ServerTelemetryChannel.dll
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\Microsoft.AI.Web.dll
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\Microsoft.AI.WindowsServer.dll
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\Microsoft.ApplicationInsights.dll
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\EntityFramework.xml
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\EntityFramework.SqlServer.xml
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\Microsoft.AI.DependencyCollector.xml
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\Microsoft.AI.ServerTelemetryChannel.xml
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\Microsoft.AI.Web.xml
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\Microsoft.AI.WindowsServer.xml
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\Microsoft.ApplicationInsights.xml
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\fr\EntityFramework.resources.dll
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\obj\Debug\Magic.csprojResolveAssemblyReference.cache
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\obj\Debug\Magic.dll
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\obj\Debug\Magic.pdb
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\Newtonsoft.Json.dll
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\System.Net.Http.Formatting.dll
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\System.Web.Http.dll
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\System.Web.Http.WebHost.dll
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\Newtonsoft.Json.xml
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\System.Net.Http.Formatting.xml
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\System.Web.Http.xml
+c:\users\fder1\documents\visual studio 2015\Projects\Magic\Magic\bin\System.Web.Http.WebHost.xml
+C:\workspace\Magic\Magic\bin\ApplicationInsights.config
+C:\workspace\Magic\Magic\bin\roslyn\csc.exe
+C:\workspace\Magic\Magic\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\workspace\Magic\Magic\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\workspace\Magic\Magic\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\workspace\Magic\Magic\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\workspace\Magic\Magic\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\workspace\Magic\Magic\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\workspace\Magic\Magic\bin\roslyn\System.Collections.Immutable.dll
+C:\workspace\Magic\Magic\bin\roslyn\System.Reflection.Metadata.dll
+C:\workspace\Magic\Magic\bin\roslyn\vbc.exe
+C:\workspace\Magic\Magic\bin\roslyn\VBCSCompiler.exe
+C:\workspace\Magic\Magic\bin\roslyn\VBCSCompiler.exe.config
+C:\workspace\Magic\Magic\bin\Magic.dll.config
+C:\workspace\Magic\Magic\bin\Magic.dll
+C:\workspace\Magic\Magic\bin\Magic.pdb
+C:\workspace\Magic\Magic\bin\EntityFramework.dll
+C:\workspace\Magic\Magic\bin\EntityFramework.SqlServer.dll
+C:\workspace\Magic\Magic\bin\Microsoft.AI.Agent.Intercept.dll
+C:\workspace\Magic\Magic\bin\Microsoft.AI.DependencyCollector.dll
+C:\workspace\Magic\Magic\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\workspace\Magic\Magic\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\workspace\Magic\Magic\bin\Microsoft.AI.Web.dll
+C:\workspace\Magic\Magic\bin\Microsoft.AI.WindowsServer.dll
+C:\workspace\Magic\Magic\bin\Microsoft.ApplicationInsights.dll
+C:\workspace\Magic\Magic\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\workspace\Magic\Magic\bin\Newtonsoft.Json.dll
+C:\workspace\Magic\Magic\bin\System.Net.Http.Formatting.dll
+C:\workspace\Magic\Magic\bin\System.Web.Http.dll
+C:\workspace\Magic\Magic\bin\System.Web.Http.WebHost.dll
+C:\workspace\Magic\Magic\bin\EntityFramework.xml
+C:\workspace\Magic\Magic\bin\EntityFramework.SqlServer.xml
+C:\workspace\Magic\Magic\bin\Microsoft.AI.DependencyCollector.xml
+C:\workspace\Magic\Magic\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\workspace\Magic\Magic\bin\Microsoft.AI.Web.xml
+C:\workspace\Magic\Magic\bin\Microsoft.AI.WindowsServer.xml
+C:\workspace\Magic\Magic\bin\Microsoft.ApplicationInsights.xml
+C:\workspace\Magic\Magic\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\workspace\Magic\Magic\bin\Newtonsoft.Json.xml
+C:\workspace\Magic\Magic\bin\System.Net.Http.Formatting.xml
+C:\workspace\Magic\Magic\bin\System.Web.Http.xml
+C:\workspace\Magic\Magic\bin\System.Web.Http.WebHost.xml
+C:\workspace\Magic\Magic\bin\fr\EntityFramework.resources.dll
+C:\workspace\Magic\Magic\obj\Debug\Magic.csprojResolveAssemblyReference.cache
+C:\workspace\Magic\Magic\obj\Debug\Magic.dll
+C:\workspace\Magic\Magic\obj\Debug\Magic.pdb
