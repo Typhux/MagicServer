@@ -125,11 +125,11 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Magic.edmx">
+    <EntityDeploy Include="Entities\Magic.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Magic.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Magic.edmx.diagram">
+    <Content Include="Entities\Magic.edmx.diagram">
       <DependentUpon>Magic.edmx</DependentUpon>
     </Content>
     <None Include="Web.Debug.config">
@@ -141,25 +141,26 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Magic.Context.tt">
+    <Content Include="Entities\Magic.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Magic.edmx</DependentUpon>
       <LastGenOutput>Magic.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Magic.tt">
+    <Content Include="Entities\Magic.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Magic.edmx</DependentUpon>
       <LastGenOutput>Magic.cs</LastGenOutput>
     </Content>
+    <Content Include="SQL\CreateDatabase.sql" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\ContentController.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Card.cs">
+    <Compile Include="Entities\Card.cs">
       <DependentUpon>Magic.tt</DependentUpon>
     </Compile>
-    <Compile Include="Edition.cs">
+    <Compile Include="Entities\Edition.cs">
       <DependentUpon>Magic.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
@@ -167,17 +168,17 @@
     </Compile>
     <Compile Include="Helpers\CardHelper.cs" />
     <Compile Include="Helpers\EditionHelper.cs" />
-    <Compile Include="Magic.Context.cs">
+    <Compile Include="Entities\Magic.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Magic.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Magic.cs">
+    <Compile Include="Entities\Magic.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Magic.tt</DependentUpon>
     </Compile>
-    <Compile Include="Magic.Designer.cs">
+    <Compile Include="Entities\Magic.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Magic.edmx</DependentUpon>
