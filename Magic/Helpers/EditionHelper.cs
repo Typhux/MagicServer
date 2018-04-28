@@ -1,16 +1,23 @@
 ﻿using Magic.Entities;
+using Magic.Models;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Magic.Helpers
 {
+
     public class EditionHelper
     {
         private MagicEntities entities = new MagicEntities();
 
-        public List<Edition> GetEditions()
+        public List<ResponseEdition> GetEditions()
         {
-                return entities.Editions.ToList();
+            return entities.Editions.Select(e => new ResponseEdition()
+            {
+                Id = e.Id,
+                Title = e.Title,
+                Url_Logo = e.Url_Logo
+            }).ToList();
         }
 
         public Edition GetEdition(int id)
@@ -18,16 +25,21 @@ namespace Magic.Helpers
             return entities.Editions.Where(e => e.Id == id).FirstOrDefault() ;
         }
 
-        public void UpdateEdition(Edition edition)
+        public void UpdateEdition(RequestEdition edition)
         {
-            var existingEdition = entities.Editions.Where(e => e.Id == edition.Id).FirstOrDefault();
-            if(existingEdition != null) {
+            if (edition.Id != null)
+            {
+                var existingEdition = entities.Editions.Where(e => e.Id == edition.Id).FirstOrDefault();
                 entities.Editions.Attach(existingEdition);
                 existingEdition.Title = edition.Title;
-                existingEdition.Url_Logo = edition.Url_Logo;
+                existingEdition.Url_Logo = edition.UrlLogo;
             }else
             {
-                entities.Editions.Add(edition);
+                entities.Editions.Add(new Edition
+                {
+                    Title = edition.Title,
+                    Url_Logo = edition.UrlLogo
+                });
             }
             entities.SaveChanges();
         }
@@ -38,6 +50,8 @@ namespace Magic.Helpers
 
             if (editionToDelete != null)
                 entities.Editions.Remove(editionToDelete);
+
+            entities.SaveChanges();
         }
     }
 }

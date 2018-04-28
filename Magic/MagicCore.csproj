@@ -155,7 +155,8 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API\ContentController.cs" />
+    <Compile Include="Controllers\API\CardController.cs" />
+    <Compile Include="Controllers\API\EditionController.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Entities\Card.cs">
       <DependentUpon>Magic.tt</DependentUpon>
@@ -183,6 +184,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Magic.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\RequestEdition.cs" />
     <Compile Include="Models\ResponseEdition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -191,7 +193,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
