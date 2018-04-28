@@ -1,4 +1,3 @@
-C:\workspace\MagicServer\Magic\bin\ApplicationInsights.config
 C:\workspace\MagicServer\Magic\bin\roslyn\csc.exe
 C:\workspace\MagicServer\Magic\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\workspace\MagicServer\Magic\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
@@ -16,13 +15,6 @@ C:\workspace\MagicServer\Magic\bin\Magic.dll
 C:\workspace\MagicServer\Magic\bin\Magic.pdb
 C:\workspace\MagicServer\Magic\bin\EntityFramework.dll
 C:\workspace\MagicServer\Magic\bin\EntityFramework.SqlServer.dll
-C:\workspace\MagicServer\Magic\bin\Microsoft.AI.Agent.Intercept.dll
-C:\workspace\MagicServer\Magic\bin\Microsoft.AI.DependencyCollector.dll
-C:\workspace\MagicServer\Magic\bin\Microsoft.AI.PerfCounterCollector.dll
-C:\workspace\MagicServer\Magic\bin\Microsoft.AI.ServerTelemetryChannel.dll
-C:\workspace\MagicServer\Magic\bin\Microsoft.AI.Web.dll
-C:\workspace\MagicServer\Magic\bin\Microsoft.AI.WindowsServer.dll
-C:\workspace\MagicServer\Magic\bin\Microsoft.ApplicationInsights.dll
 C:\workspace\MagicServer\Magic\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\workspace\MagicServer\Magic\bin\Newtonsoft.Json.dll
 C:\workspace\MagicServer\Magic\bin\System.Net.Http.Formatting.dll
@@ -30,11 +22,6 @@ C:\workspace\MagicServer\Magic\bin\System.Web.Http.dll
 C:\workspace\MagicServer\Magic\bin\System.Web.Http.WebHost.dll
 C:\workspace\MagicServer\Magic\bin\EntityFramework.xml
 C:\workspace\MagicServer\Magic\bin\EntityFramework.SqlServer.xml
-C:\workspace\MagicServer\Magic\bin\Microsoft.AI.DependencyCollector.xml
-C:\workspace\MagicServer\Magic\bin\Microsoft.AI.ServerTelemetryChannel.xml
-C:\workspace\MagicServer\Magic\bin\Microsoft.AI.Web.xml
-C:\workspace\MagicServer\Magic\bin\Microsoft.AI.WindowsServer.xml
-C:\workspace\MagicServer\Magic\bin\Microsoft.ApplicationInsights.xml
 C:\workspace\MagicServer\Magic\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\workspace\MagicServer\Magic\bin\Newtonsoft.Json.xml
 C:\workspace\MagicServer\Magic\bin\System.Net.Http.Formatting.xml
