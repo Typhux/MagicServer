@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Magic
+namespace Magic.Entities
 {
     using System;
     using System.Collections.Generic;

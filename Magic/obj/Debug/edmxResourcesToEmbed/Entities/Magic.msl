@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MagicModelStoreContainer" CdmEntityContainer="MagicEntities">
+    <EntitySetMapping Name="Cards">
+      <EntityTypeMapping TypeName="MagicModel.Card">
+        <MappingFragment StoreEntitySet="Card">
+          <ScalarProperty Name="EditionId" ColumnName="EditionId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="SubType" ColumnName="SubType" />
+          <ScalarProperty Name="BlueMana" ColumnName="BlueMana" />
+          <ScalarProperty Name="GreenMana" ColumnName="GreenMana" />
+          <ScalarProperty Name="WhiteMana" ColumnName="WhiteMana" />
+          <ScalarProperty Name="BlackMana" ColumnName="BlackMana" />
+          <ScalarProperty Name="RedMana" ColumnName="RedMana" />
+          <ScalarProperty Name="NeutralMana" ColumnName="NeutralMana" />
+          <ScalarProperty Name="Rarity" ColumnName="Rarity" />
+          <ScalarProperty Name="Mechanic" ColumnName="Mechanic" />
+          <ScalarProperty Name="CodeName" ColumnName="CodeName" />
+          <ScalarProperty Name="Power" ColumnName="Power" />
+          <ScalarProperty Name="Defense" ColumnName="Defense" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Editions">
+      <EntityTypeMapping TypeName="MagicModel.Edition">
+        <MappingFragment StoreEntitySet="Edition">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Url_Logo" ColumnName="Url_Logo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

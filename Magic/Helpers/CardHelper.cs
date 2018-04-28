@@ -1,15 +1,17 @@
-﻿using Magic.Models;
-using System;
+﻿using Magic.Entities;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using System.Web;
 
 namespace Magic.Helpers
 {
     public class CardHelper
     {
         private MagicEntities entities = new MagicEntities();
+
+        public List<Card> GetCards()
+        {
+            return entities.Cards.ToList();
+        }
 
         public List<Card> GetCardByEdition(int editionId)
         {
@@ -21,7 +23,7 @@ namespace Magic.Helpers
             return entities.Cards.Where(c => c.Id == id).FirstOrDefault();
         }
 
-        public void UpdateEdition(Card card)
+        public void UpdateCard(Card card)
         {
             var existingCard = entities.Cards.Where(c => c.Id == card.Id).FirstOrDefault();
             if (existingCard != null)
@@ -50,12 +52,12 @@ namespace Magic.Helpers
             entities.SaveChanges();
         }
 
-        public void DeleteEdition(int id)
+        public void DeleteCard(int id)
         {
-            var editionToDelete = entities.Editions.Where(e => e.Id == id).FirstOrDefault();
+            var cardToDelete = entities.Cards.Where(c => c.Id == id).FirstOrDefault();
 
-            if (editionToDelete != null)
-                entities.Editions.Remove(editionToDelete);
+            if (cardToDelete != null)
+                entities.Cards.Remove(cardToDelete);
         }
     }
 }
