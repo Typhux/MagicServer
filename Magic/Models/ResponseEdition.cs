@@ -20,7 +20,7 @@ namespace Magic.Models
         public string Url_Logo;
 
         [JsonProperty("cards")]
-        public List<Card> Cards;
+        public List<ResponseCard> Cards;
 
     }
 }

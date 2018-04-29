@@ -61,7 +61,9 @@
           <Property Name="Label" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <Association Name="FK_Card_Edition">
-          <End Role="Edition" Type="Self.Edition" Multiplicity="1" />
+          <End Role="Edition" Type="Self.Edition" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Card" Type="Self.Card" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Edition">

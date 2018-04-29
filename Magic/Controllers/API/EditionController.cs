@@ -12,25 +12,29 @@ namespace Magic.Controllers.API
         private EditionHelper editionHelper = new EditionHelper();
         private CardHelper cardHelper = new CardHelper();
 
-        // GET: api/Edition
+        [Route("api/edition")]
+        [HttpGet]
         public List<ResponseEdition> Get()
         {
             return editionHelper.GetEditions();
         }
-
-        // GET: api/Edition/id
+        
+        [Route("api/edition/{id}")]
+        [HttpGet]
         public ResponseEdition Get(int id)
         {
             return editionHelper.GetEdition(id);
         }
 
-        // POST: api/Edition
+        [Route("api/edition")]
+        [HttpPost]
         public void Post([FromBody]RequestEdition value)
         {
             editionHelper.UpdateEdition(value);
         }
 
-        // DELETE: api/Edition/id
+        [Route("api/edition/{id}")]
+        [HttpDelete]
         public void Delete(int id)
         {
             editionHelper.DeleteEdition(id);

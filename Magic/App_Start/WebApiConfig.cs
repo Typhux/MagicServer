@@ -15,12 +15,7 @@ namespace Magic
             config.Formatters.Remove(config.Formatters.XmlFormatter);
 
             config.Formatters.Add(config.Formatters.JsonFormatter);
-
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{action}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+            
         }
     }
 }

@@ -28,10 +28,28 @@ namespace Magic.Helpers
                 Title = e.Title,
                 Url_Logo = e.Url_Logo
             }).FirstOrDefault() ;
-            
-            //edition.Cards = entities.Cards.Where(c => c.EditionId == id).Select(c => new ResponseCardl()){
 
-            //});
+            edition.Cards = entities.Cards.Where(c => c.EditionId == id).Select(c => new ResponseCard()
+            {
+                Id = c.Id,
+                Title = c.Title,
+                Type = c.Type,
+                SubType = c.SubType,
+                BlueMana = c.BlueMana,
+                GreenMana = c.GreenMana,
+                WhiteMana = c.WhiteMana,
+                BlackMana = c.BlackMana,
+                RedMana = c.RedMana,
+                NeutralMana = c.NeutralMana,
+                Rarity = c.Rarity,
+                Mechanic = c.Mechanic,
+                CodeName = c.CodeName,
+                Power = c.Power,
+                Defense = c.Defense,
+                EditionId = c.EditionId,
+                Commentary = c.Commentary,
+                UrlImage = c.UrlImage
+            }).ToList();
 
             return edition;
         }

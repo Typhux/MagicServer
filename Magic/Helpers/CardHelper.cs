@@ -139,6 +139,8 @@ namespace Magic.Helpers
 
             if (cardToDelete != null)
                 entities.Cards.Remove(cardToDelete);
+
+            entities.SaveChanges();
         }
 
         public List<ResponseEnum> GetRarities()
@@ -149,6 +151,15 @@ namespace Magic.Helpers
                 Label = r.Label
             }).ToList();
         }
+
+        public ResponseEnum GetRarityById(int id)
+        {
+            return entities.Rarities.Where(r => r.Id == id).Select(r => new ResponseEnum()
+            {
+                Id = r.Id,
+                Label = r.Label
+            }).FirstOrDefault();
+        }
         
         public List<ResponseEnum> GetTypes()
         {
@@ -157,6 +168,15 @@ namespace Magic.Helpers
                 Id = r.Id,
                 Label = r.Label
             }).ToList();
+        }
+
+        public ResponseEnum GetTypeById(int id)
+        {
+            return entities.Types.Where(t => t.Id == id).Select(t => new ResponseEnum()
+            {
+                Id = t.Id,
+                Label = t.Label
+            }).FirstOrDefault();
         }
     }
 }
