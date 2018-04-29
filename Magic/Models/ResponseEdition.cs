@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Magic.Entities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,9 @@ namespace Magic.Models
 
         [JsonProperty("urlLogo")]
         public string Url_Logo;
+
+        [JsonProperty("cards")]
+        public List<Card> Cards;
+
     }
 }

@@ -133,6 +133,12 @@
     <Compile Include="Entities\Edition.cs">
       <DependentUpon>Magic.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Rarity.cs">
+      <DependentUpon>Magic.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Type.cs">
+      <DependentUpon>Magic.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -153,6 +159,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Magic.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\RequestCard.cs" />
+    <Compile Include="Models\ResponseCard.cs" />
+    <Compile Include="Models\ResponseEnum.cs" />
+    <Compile Include="Models\Type.cs" />
+    <Compile Include="Models\Rarity.cs" />
     <Compile Include="Models\RequestEdition.cs" />
     <Compile Include="Models\ResponseEdition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

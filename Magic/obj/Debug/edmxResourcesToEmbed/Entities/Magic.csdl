@@ -21,6 +21,10 @@
     <Property Name="Defense" Type="Int32" Nullable="false" />
     <Property Name="EditionId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Edition" Relationship="MagicModel.FK_Card_Edition" FromRole="Card" ToRole="Edition" />
+    <Property Name="Commentary" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="UrlImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Rarity1" Relationship="MagicModel.FK_Card_Rarity" FromRole="Card" ToRole="Rarity" />
+    <NavigationProperty Name="Type1" Relationship="MagicModel.FK_Card_Type" FromRole="Card" ToRole="Type" />
   </EntityType>
   <EntityType Name="Edition">
     <Key>
@@ -38,6 +42,16 @@
       <End Role="Edition" EntitySet="Editions" />
       <End Role="Card" EntitySet="Cards" />
     </AssociationSet>
+    <EntitySet Name="Rarities" EntityType="MagicModel.Rarity" />
+    <EntitySet Name="Types" EntityType="MagicModel.Type" />
+    <AssociationSet Name="FK_Card_Rarity" Association="MagicModel.FK_Card_Rarity">
+      <End Role="Rarity" EntitySet="Rarities" />
+      <End Role="Card" EntitySet="Cards" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Card_Type" Association="MagicModel.FK_Card_Type">
+      <End Role="Type" EntitySet="Types" />
+      <End Role="Card" EntitySet="Cards" />
+    </AssociationSet>
   </EntityContainer>
   <Association Name="FK_Card_Edition">
     <End Type="MagicModel.Edition" Role="Edition" Multiplicity="1" />
@@ -48,6 +62,46 @@
       </Principal>
       <Dependent Role="Card">
         <PropertyRef Name="EditionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Rarity">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Label" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Cards" Relationship="MagicModel.FK_Card_Rarity" FromRole="Rarity" ToRole="Card" />
+  </EntityType>
+  <EntityType Name="Type">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Label" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Cards" Relationship="MagicModel.FK_Card_Type" FromRole="Type" ToRole="Card" />
+  </EntityType>
+  <Association Name="FK_Card_Rarity">
+    <End Type="MagicModel.Rarity" Role="Rarity" Multiplicity="1" />
+    <End Type="MagicModel.Card" Role="Card" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rarity">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Card">
+        <PropertyRef Name="Rarity" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Card_Type">
+    <End Type="MagicModel.Type" Role="Type" Multiplicity="1" />
+    <End Type="MagicModel.Card" Role="Card" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Type">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Card">
+        <PropertyRef Name="Type" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

@@ -20,9 +20,20 @@ namespace Magic.Helpers
             }).ToList();
         }
 
-        public Edition GetEdition(int id)
+        public ResponseEdition GetEdition(int id)
         {
-            return entities.Editions.Where(e => e.Id == id).FirstOrDefault() ;
+            var edition = entities.Editions.Where(e => e.Id == id).Select(e => new ResponseEdition()
+            {
+                Id = e.Id,
+                Title = e.Title,
+                Url_Logo = e.Url_Logo
+            }).FirstOrDefault() ;
+            
+            //edition.Cards = entities.Cards.Where(c => c.EditionId == id).Select(c => new ResponseCardl()){
+
+            //});
+
+            return edition;
         }
 
         public void UpdateEdition(RequestEdition edition)

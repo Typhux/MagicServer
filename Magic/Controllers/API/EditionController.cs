@@ -15,20 +15,13 @@ namespace Magic.Controllers.API
         // GET: api/Edition
         public List<ResponseEdition> Get()
         {
-            var editions = editionHelper.GetEditions();
-            return editions;
+            return editionHelper.GetEditions();
         }
 
         // GET: api/Edition/id
-        public Edition Get(int id)
+        public ResponseEdition Get(int id)
         {
             return editionHelper.GetEdition(id);
-        }
-        
-        // GET: api/Edition/Card/id
-        public List<Card> Card(int id)
-        {
-            return cardHelper.GetCardByEdition(id);
         }
 
         // POST: api/Edition

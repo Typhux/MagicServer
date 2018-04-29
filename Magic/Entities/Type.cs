@@ -15,11 +15,11 @@ namespace Magic.Entities
 using System;
     using System.Collections.Generic;
     
-public partial class Edition
+public partial class Type
 {
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public Edition()
+    public Type()
     {
 
         this.Cards = new HashSet<Card>();
@@ -29,9 +29,7 @@ public partial class Edition
 
     public int Id { get; set; }
 
-    public string Title { get; set; }
-
-    public string Url_Logo { get; set; }
+    public string Label { get; set; }
 
 
 

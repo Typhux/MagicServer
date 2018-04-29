@@ -20,6 +20,8 @@
     <Property Name="Power" Type="int" Nullable="false" />
     <Property Name="Defense" Type="int" Nullable="false" />
     <Property Name="EditionId" Type="int" Nullable="false" />
+    <Property Name="Commentary" Type="varchar(max)" />
+    <Property Name="UrlImage" Type="varchar(max)" />
   </EntityType>
   <EntityType Name="Edition">
     <Key>
@@ -28,6 +30,13 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Title" Type="varchar(max)" Nullable="false" />
     <Property Name="Url_Logo" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Rarity">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Label" Type="varchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -38,6 +47,13 @@
     <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Type">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Label" Type="varchar(max)" Nullable="false" />
   </EntityType>
   <Association Name="FK_Card_Edition">
     <End Role="Edition" Type="Self.Edition" Multiplicity="1" />
@@ -51,12 +67,46 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Card_Rarity">
+    <End Role="Rarity" Type="Self.Rarity" Multiplicity="1" />
+    <End Role="Card" Type="Self.Card" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rarity">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Card">
+        <PropertyRef Name="Rarity" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Card_Type">
+    <End Role="Type" Type="Self.Type" Multiplicity="1" />
+    <End Role="Card" Type="Self.Card" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Type">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Card">
+        <PropertyRef Name="Type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="MagicModelStoreContainer">
     <EntitySet Name="Card" EntityType="Self.Card" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Edition" EntityType="Self.Edition" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rarity" EntityType="Self.Rarity" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Card_Edition" Association="Self.FK_Card_Edition">
       <End Role="Edition" EntitySet="Edition" />
+      <End Role="Card" EntitySet="Card" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Card_Rarity" Association="Self.FK_Card_Rarity">
+      <End Role="Rarity" EntitySet="Rarity" />
+      <End Role="Card" EntitySet="Card" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Card_Type" Association="Self.FK_Card_Type">
+      <End Role="Type" EntitySet="Type" />
       <End Role="Card" EntitySet="Card" />
     </AssociationSet>
   </EntityContainer>

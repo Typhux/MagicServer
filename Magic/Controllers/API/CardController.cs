@@ -1,6 +1,7 @@
-﻿using Magic.Entities;
-using Magic.Helpers;
+﻿using Magic.Helpers;
+using Magic.Models;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 
 namespace Magic.Controllers.API
@@ -11,28 +12,42 @@ namespace Magic.Controllers.API
 
         
         // GET: api/Card
-        public List<Card> Get()
+        public List<ResponseCard> Get()
         {
-            return cardHelper.GetCards();
+            return cardHelper.GetLatestCards().ToList();
         }
 
         // GET: api/Card/id
-        public Card Get(int id)
+        public ResponseCard Get(int id)
         {
             return cardHelper.GetCard(id);
         }
 
-        // POST: api/Edition
-        public void Post([FromBody]Card value)
+        // POST: api/Card
+        public void Post([FromBody]RequestCard value)
         {
             cardHelper.UpdateCard(value);
         }
 
-        // DELETE: api/Edition/id
+        // DELETE: api/Card/id
         public void Delete(int id)
         {
             cardHelper.DeleteCard(id);
         }
-        
+
+        // GET: api/Type
+        [AcceptVerbs("GET")]
+        public List<ResponseEnum> Type()
+        {
+            return cardHelper.GetTypes();
+        }
+
+        // GET: api/Rarity
+        [AcceptVerbs("GET")]
+        public List<ResponseEnum> Rarity()
+        {
+            return cardHelper.GetRarities();
+        }
+
     }
 }

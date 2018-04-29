@@ -8,6 +8,10 @@
         <EntityTypeShape EntityType="MagicModel.Card" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MagicModel.Edition" Width="1.5" PointX="6.625" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="MagicModel.FK_Card_Edition" />
+        <EntityTypeShape EntityType="MagicModel.Rarity" Width="1.5" PointX="0.75" PointY="9.625" />
+        <EntityTypeShape EntityType="MagicModel.Type" Width="1.5" PointX="0.75" PointY="7.25" />
+        <AssociationConnector Association="MagicModel.FK_Card_Rarity" />
+        <AssociationConnector Association="MagicModel.FK_Card_Type" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -4,6 +4,8 @@
     <EntitySetMapping Name="Cards">
       <EntityTypeMapping TypeName="MagicModel.Card">
         <MappingFragment StoreEntitySet="Card">
+          <ScalarProperty Name="UrlImage" ColumnName="UrlImage" />
+          <ScalarProperty Name="Commentary" ColumnName="Commentary" />
           <ScalarProperty Name="EditionId" ColumnName="EditionId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Title" ColumnName="Title" />
@@ -29,6 +31,22 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Url_Logo" ColumnName="Url_Logo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rarities">
+      <EntityTypeMapping TypeName="MagicModel.Rarity">
+        <MappingFragment StoreEntitySet="Rarity">
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Types">
+      <EntityTypeMapping TypeName="MagicModel.Type">
+        <MappingFragment StoreEntitySet="Type">
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
