@@ -39,18 +39,36 @@ namespace Magic.Helpers
             if (request.Rarity != null)
                 query = query.Where(c => c.Rarity == request.Rarity);
 
-            if (request.BlueMana != null)
-                query = query.Where(c => c.BlueMana == request.BlueMana);
-            if (request.GreenMana != null)
-                query = query.Where(c => c.GreenMana == request.GreenMana);
-            if (request.BlackMana != null)
-                query = query.Where(c => c.BlackMana== request.BlackMana);
-            if (request.WhiteMana != null)
-                query = query.Where(c => c.WhiteMana == request.WhiteMana);
-            if (request.RedMana != null)
-                query = query.Where(c => c.RedMana== request.RedMana);
-            if (request.NeutralMana != null)
-                query = query.Where(c => c.NeutralMana == request.NeutralMana);
+            if (request.MinBlueMana != null)
+                query = query.Where(c => c.BlueMana >= request.MinBlueMana);
+            if (request.MaxBlueMana != null)
+                query = query.Where(c => c.BlueMana <= request.MaxBlueMana);
+
+            if (request.MinGreenMana != null)
+                query = query.Where(c => c.GreenMana >= request.MinGreenMana);
+            if (request.MaxGreenMana != null)
+                query = query.Where(c => c.GreenMana <= request.MaxGreenMana);
+
+            if (request.MinBlackMana != null)
+                query = query.Where(c => c.BlackMana >= request.MinBlackMana);
+            if (request.MaxBlackMana != null)
+                query = query.Where(c => c.BlackMana <= request.MaxBlackMana);
+
+            if (request.MinWhiteMana != null)
+                query = query.Where(c => c.WhiteMana >= request.MinWhiteMana);
+            if (request.MaxWhiteMana != null)
+                query = query.Where(c => c.WhiteMana <= request.MaxWhiteMana);
+
+            if (request.MinRedMana != null)
+                query = query.Where(c => c.RedMana >= request.MinRedMana);
+            if (request.MaxRedMana != null)
+                query = query.Where(c => c.RedMana <= request.MaxRedMana);
+
+            if (request.MinNeutralMana != null)
+                query = query.Where(c => c.NeutralMana >= request.MinNeutralMana);
+            if (request.MaxNeutralMana != null)
+                query = query.Where(c => c.NeutralMana <= request.MaxNeutralMana);
+
             if (request.LevelCard != null)
                 query = query.Where(c =>
                 c.BlueMana +
