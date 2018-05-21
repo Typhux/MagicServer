@@ -22,6 +22,7 @@
     <Property Name="EditionId" Type="int" Nullable="false" />
     <Property Name="Commentary" Type="varchar(max)" />
     <Property Name="UrlImage" Type="varchar(max)" />
+    <Property Name="IsTreated" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Edition">
     <Key>

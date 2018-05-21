@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Cards">
       <EntityTypeMapping TypeName="MagicModel.Card">
         <MappingFragment StoreEntitySet="Card">
+          <ScalarProperty Name="IsTreated" ColumnName="IsTreated" />
           <ScalarProperty Name="UrlImage" ColumnName="UrlImage" />
           <ScalarProperty Name="Commentary" ColumnName="Commentary" />
           <ScalarProperty Name="EditionId" ColumnName="EditionId" />

@@ -8,13 +8,20 @@ namespace Magic.Controllers.API
 {
     public class SearchController : ApiController
     {
-        private QueryHelper queryHelper = new QueryHelper();
+        private readonly QueryHelper _queryHelper = new QueryHelper();
 
         [Route("api/search")]
         [HttpPost]
-        public List<ResultQueryCard> Get(QueryCard request)
+        public List<ResultQueryCard> Post(QueryCard request)
         {
-            return queryHelper.ExecuteQuery(request).ToList();
+            return _queryHelper.ExecuteQuery(request).ToList();
+        }
+        
+        [Route("api/search/{codeName}")]
+        [HttpGet]
+        public ResponseCard Get(string codeName)
+        {
+            return _queryHelper.GetCardByCodeName(codeName).FirstOrDefault();
         }
     }
 }

@@ -54,6 +54,8 @@ public partial class Card
 
     public string UrlImage { get; set; }
 
+    public bool IsTreated { get; set; }
+
 
 
     public virtual Edition Edition { get; set; }

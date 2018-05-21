@@ -25,6 +25,7 @@
     <Property Name="UrlImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Rarity1" Relationship="MagicModel.FK_Card_Rarity" FromRole="Card" ToRole="Rarity" />
     <NavigationProperty Name="Type1" Relationship="MagicModel.FK_Card_Type" FromRole="Card" ToRole="Type" />
+    <Property Name="IsTreated" Type="Boolean" Nullable="false" />
   </EntityType>
   <EntityType Name="Edition">
     <Key>

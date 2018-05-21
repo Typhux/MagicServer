@@ -27,6 +27,7 @@
           <Property Name="EditionId" Type="int" Nullable="false" />
           <Property Name="Commentary" Type="varchar(max)" />
           <Property Name="UrlImage" Type="varchar(max)" />
+          <Property Name="IsTreated" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Edition">
           <Key>
@@ -146,6 +147,7 @@
           <Property Name="UrlImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Rarity1" Relationship="MagicModel.FK_Card_Rarity" FromRole="Card" ToRole="Rarity" />
           <NavigationProperty Name="Type1" Relationship="MagicModel.FK_Card_Type" FromRole="Card" ToRole="Type" />
+          <Property Name="IsTreated" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Edition">
           <Key>
@@ -235,6 +237,7 @@
           <EntitySetMapping Name="Cards">
             <EntityTypeMapping TypeName="MagicModel.Card">
               <MappingFragment StoreEntitySet="Card">
+                <ScalarProperty Name="IsTreated" ColumnName="IsTreated" />
                 <ScalarProperty Name="UrlImage" ColumnName="UrlImage" />
                 <ScalarProperty Name="Commentary" ColumnName="Commentary" />
                 <ScalarProperty Name="EditionId" ColumnName="EditionId" />

@@ -7,11 +7,11 @@ namespace Magic.Helpers
 {
     public class CardHelper
     {
-        private MagicEntities entities = new MagicEntities();
+        private readonly MagicEntities _entities = new MagicEntities();
 
         public List<ResponseCard> GetLatestCards()
         {
-            return entities.Cards.Select(c => new ResponseCard()
+            return _entities.Cards.Select(c => new ResponseCard()
             {
                 Id = c.Id,
                 Title = c.Title,
@@ -34,34 +34,34 @@ namespace Magic.Helpers
             }).OrderByDescending(c => c.Id).Take(20).ToList();
         }
 
-        public List<ResponseCard> GetCardByEdition(int editionId)
-        {
-            return entities.Cards.Where(c => c.EditionId == editionId).Select(c => new ResponseCard()
-            {
-                Id = c.Id,
-                Title = c.Title,
-                Type = c.Type,
-                SubType = c.SubType,
-                BlueMana = c.BlueMana,
-                GreenMana = c.GreenMana,
-                WhiteMana = c.WhiteMana,
-                BlackMana = c.BlackMana,
-                RedMana = c.RedMana,
-                NeutralMana = c.NeutralMana,
-                Rarity = c.Rarity,
-                Mechanic = c.Mechanic,
-                CodeName = c.CodeName,
-                Power = c.Power,
-                Defense = c.Defense,
-                EditionId = c.EditionId,
-                Commentary = c.Commentary,
-                UrlImage = c.UrlImage
-            }).ToList();
-        }
+        //public List<ResponseCard> GetCardByEdition(int editionId)
+        //{
+        //    return _entities.Cards.Where(c => c.EditionId == editionId).Select(c => new ResponseCard()
+        //    {
+        //        Id = c.Id,
+        //        Title = c.Title,
+        //        Type = c.Type,
+        //        SubType = c.SubType,
+        //        BlueMana = c.BlueMana,
+        //        GreenMana = c.GreenMana,
+        //        WhiteMana = c.WhiteMana,
+        //        BlackMana = c.BlackMana,
+        //        RedMana = c.RedMana,
+        //        NeutralMana = c.NeutralMana,
+        //        Rarity = c.Rarity,
+        //        Mechanic = c.Mechanic,
+        //        CodeName = c.CodeName,
+        //        Power = c.Power,
+        //        Defense = c.Defense,
+        //        EditionId = c.EditionId,
+        //        Commentary = c.Commentary,
+        //        UrlImage = c.UrlImage
+        //    }).ToList();
+        //}
 
         public ResponseCard GetCard(int id)
         {
-            return entities.Cards.Where(c => c.Id == id).Select(c => new ResponseCard()
+            return _entities.Cards.Where(c => c.Id == id).Select(c => new ResponseCard()
             {
                 Id = c.Id,
                 Title = c.Title,
@@ -88,9 +88,9 @@ namespace Magic.Helpers
         {
             if (card.Id != null)
             {
-                var existingCard = entities.Cards.Where(c => c.Id == card.Id).FirstOrDefault();
+                var existingCard = _entities.Cards.Single(c => c.Id == card.Id);
             
-                entities.Cards.Attach(existingCard);
+                _entities.Cards.Attach(existingCard);
                 existingCard.Title = card.Title;
                 existingCard.Type = card.Type;
                 existingCard.SubType = card.SubType;
@@ -106,10 +106,12 @@ namespace Magic.Helpers
                 existingCard.Power = card.Power;
                 existingCard.Defense = card.Power;
                 existingCard.EditionId = card.EditionId;
+                existingCard.Commentary = card.Commentary;
+                existingCard.UrlImage = card.UrlImage;
             }
             else
             {
-                entities.Cards.Add( new Card()
+                _entities.Cards.Add( new Card()
                 {
                     Title = card.Title,
                     Type = card.Type,
@@ -130,22 +132,22 @@ namespace Magic.Helpers
                     UrlImage = card.UrlImage
                 });
             }
-            entities.SaveChanges();
+            _entities.SaveChanges();
         }
 
         public void DeleteCard(int id)
         {
-            var cardToDelete = entities.Cards.Where(c => c.Id == id).FirstOrDefault();
+            var cardToDelete = _entities.Cards.Single(c => c.Id == id);
 
             if (cardToDelete != null)
-                entities.Cards.Remove(cardToDelete);
+                _entities.Cards.Remove(cardToDelete);
 
-            entities.SaveChanges();
+            _entities.SaveChanges();
         }
 
         public List<ResponseEnum> GetRarities()
         {
-            return entities.Rarities.Select(r => new ResponseEnum()
+            return _entities.Rarities.Select(r => new ResponseEnum()
             {
                 Id = r.Id,
                 Label = r.Label
@@ -154,7 +156,7 @@ namespace Magic.Helpers
 
         public ResponseEnum GetRarityById(int id)
         {
-            return entities.Rarities.Where(r => r.Id == id).Select(r => new ResponseEnum()
+            return _entities.Rarities.Where(r => r.Id == id).Select(r => new ResponseEnum()
             {
                 Id = r.Id,
                 Label = r.Label
@@ -163,7 +165,7 @@ namespace Magic.Helpers
         
         public List<ResponseEnum> GetTypes()
         {
-            return entities.Types.Select(r => new ResponseEnum()
+            return _entities.Types.Select(r => new ResponseEnum()
             {
                 Id = r.Id,
                 Label = r.Label
@@ -172,7 +174,7 @@ namespace Magic.Helpers
 
         public ResponseEnum GetTypeById(int id)
         {
-            return entities.Types.Where(t => t.Id == id).Select(t => new ResponseEnum()
+            return _entities.Types.Where(t => t.Id == id).Select(t => new ResponseEnum()
             {
                 Id = t.Id,
                 Label = t.Label

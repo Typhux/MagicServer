@@ -1,39 +1,61 @@
 ﻿using Magic.Entities;
 using Magic.Models;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Magic.Helpers
 {
     public class QueryHelper
     {
-        private MagicEntities entities = new MagicEntities();
+        private readonly MagicEntities _entities = new MagicEntities();
 
         #region Card
-        public List<ResultQueryCard> ExecuteQuery(QueryCard request)
+        public IQueryable<ResultQueryCard> ExecuteQuery(QueryCard request)
         {
             var query = CreateQueryCard(request);
 
-            return query.Select(q => new ResultQueryCard() {
+            return query.Select(q => new ResultQueryCard()
+            {
                 Id = q.Id,
                 Title = q.Title,
                 UrlImage = q.UrlImage
-            }).ToList();
+            });
+        }
+
+        public IQueryable<ResponseCard> GetCardByCodeName(string request)
+        {
+            return _entities.Cards.Where(c => c.CodeName == request).Select(c => new ResponseCard()
+            {
+                Id = c.Id,
+                Title = c.Title,
+                Type = c.Type,
+                SubType = c.SubType,
+                BlueMana = c.BlueMana,
+                GreenMana = c.GreenMana,
+                WhiteMana = c.WhiteMana,
+                BlackMana = c.BlackMana,
+                RedMana = c.RedMana,
+                NeutralMana = c.NeutralMana,
+                Rarity = c.Rarity,
+                Mechanic = c.Mechanic,
+                CodeName = c.CodeName,
+                Power = c.Power,
+                Defense = c.Defense,
+                EditionId = c.EditionId,
+                Commentary = c.Commentary,
+                UrlImage = c.UrlImage
+            });
         }
 
         private IQueryable<Card> CreateQueryCard(QueryCard request)
         {
-            var query = Enumerable.Empty<Card>().AsQueryable();
-
-            if (request.EditionId != null)
-                query = this.entities.Cards.Where(c => c.EditionId == request.EditionId);
-            else
-                query = this.entities.Cards;
+            var query = request.EditionId != null ?
+                  _entities.Cards.Where(c => c.EditionId == request.EditionId) :
+                  _entities.Cards;
 
             if (!string.IsNullOrEmpty(request.Title))
                 query = query.Where(c => c.Title.ToLower().Contains(request.Title.ToLower()));
 
-            if(request.Type != null)
+            if (request.Type != null)
                 query = query.Where(c => c.Type == request.Type);
 
             if (request.Rarity != null)
@@ -76,8 +98,8 @@ namespace Magic.Helpers
                 c.BlackMana +
                 c.WhiteMana +
                 c.RedMana +
-                c.NeutralMana  == request.LevelCard);
-            
+                c.NeutralMana == request.LevelCard);
+
             return query;
         }
 
