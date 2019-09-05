@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6a4db1621d7848beb0a948c159736643" Name="Diagram1">
+      <Diagram DiagramId="6a4db1621d7848beb0a948c159736643" Name="Diagram1" ZoomLevel="95">
         <EntityTypeShape EntityType="MagicModel.Card" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MagicModel.Edition" Width="1.5" PointX="6.625" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="MagicModel.FK_Card_Edition" />
