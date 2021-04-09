@@ -1,5 +1,6 @@
 ﻿using Magic.Entities;
 using Magic.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,87 +10,75 @@ namespace Magic.Helpers
     {
         private readonly MagicEntities _entities = new MagicEntities();
 
+        //Va virer avec le code du DrawEngine
+        private readonly EditionHelper edition = new EditionHelper();
+
+        // Revoir avec le passage en param du nombre de carte desire
         public List<ResponseCard> GetLatestCards()
         {
-            return _entities.Cards.Select(c => new ResponseCard()
-            {
-                Id = c.Id,
-                Title = c.Title,
-                Type = c.Type,
-                SubType = c.SubType,
-                BlueMana = c.BlueMana,
-                GreenMana = c.GreenMana,
-                WhiteMana = c.WhiteMana,
-                BlackMana = c.BlackMana,
-                RedMana = c.RedMana,
-                NeutralMana = c.NeutralMana,
-                Rarity = c.Rarity,
-                Mechanic = c.Mechanic,
-                CodeName = c.CodeName,
-                Power = c.Power,
-                Defense = c.Defense,
-                EditionId = c.EditionId,
-                Commentary = c.Commentary,
-                UrlImage = c.UrlImage
-            }).OrderByDescending(c => c.Id).Take(20).ToList();
+            return _entities.Cards.Select(c => new ResponseCard(c)).OrderByDescending(c => c.Id).Take(20).ToList();
         }
-
-        //public List<ResponseCard> GetCardByEdition(int editionId)
-        //{
-        //    return _entities.Cards.Where(c => c.EditionId == editionId).Select(c => new ResponseCard()
-        //    {
-        //        Id = c.Id,
-        //        Title = c.Title,
-        //        Type = c.Type,
-        //        SubType = c.SubType,
-        //        BlueMana = c.BlueMana,
-        //        GreenMana = c.GreenMana,
-        //        WhiteMana = c.WhiteMana,
-        //        BlackMana = c.BlackMana,
-        //        RedMana = c.RedMana,
-        //        NeutralMana = c.NeutralMana,
-        //        Rarity = c.Rarity,
-        //        Mechanic = c.Mechanic,
-        //        CodeName = c.CodeName,
-        //        Power = c.Power,
-        //        Defense = c.Defense,
-        //        EditionId = c.EditionId,
-        //        Commentary = c.Commentary,
-        //        UrlImage = c.UrlImage
-        //    }).ToList();
-        //}
 
         public ResponseCard GetCard(int id)
         {
-            return _entities.Cards.Where(c => c.Id == id).Select(c => new ResponseCard()
-            {
-                Id = c.Id,
-                Title = c.Title,
-                Type = c.Type,
-                SubType = c.SubType,
-                BlueMana = c.BlueMana,
-                GreenMana = c.GreenMana,
-                WhiteMana = c.WhiteMana,
-                BlackMana = c.BlackMana,
-                RedMana = c.RedMana,
-                NeutralMana = c.NeutralMana,
-                Rarity = c.Rarity,
-                Mechanic = c.Mechanic,
-                CodeName = c.CodeName,
-                Power = c.Power,
-                Defense = c.Defense,
-                EditionId = c.EditionId,
-                Commentary = c.Commentary,
-                UrlImage = c.UrlImage
-            }).FirstOrDefault();
+            return _entities.Cards.Where(c => c.Id == id).Select(c => new ResponseCard(c)).FirstOrDefault();
         }
+
+        #region A mettre dans le DrawEnigne
+
+        public ResponseCard GetCardForLand(int rarity, string land)
+        {
+            var random = new Random();
+            var request = _entities.Cards.Where(c => c.Rarity == rarity);
+
+            if (land == "Plain")
+            {
+                request = request.Where(c => c.WhiteMana.Value == 1 && c.NeutralMana.Value == 0 && c.BlueMana.Value == 0 && c.GreenMana.Value == 0 && c.BlackMana.Value == 0 && c.RedMana.Value == 0);
+            }
+
+            if (land == "Island")
+            {
+                request = request.Where(c => c.WhiteMana.Value == 0 && c.NeutralMana.Value == 0 && c.BlueMana.Value == 1 && c.GreenMana.Value == 0 && c.BlackMana.Value == 0 && c.RedMana.Value == 0);
+            }
+
+            if (land == "Forest")
+            {
+                request = request.Where(c => c.WhiteMana.Value == 0 && c.NeutralMana.Value == 0 && c.BlueMana.Value == 0 && c.GreenMana.Value == 1 && c.BlackMana.Value == 0 && c.RedMana.Value == 0);
+            }
+
+            if (land == "Swamp")
+            {
+                request = request.Where(c => c.WhiteMana.Value == 0 && c.NeutralMana.Value == 0 && c.BlueMana.Value == 0 && c.GreenMana.Value == 0 && c.BlackMana.Value == 1 && c.RedMana.Value == 0);
+            }
+
+            if (land == "Mountain")
+            {
+                request = request.Where(c => c.WhiteMana.Value == 0 && c.NeutralMana.Value == 0 && c.BlueMana.Value == 0 && c.GreenMana.Value == 0 && c.BlackMana.Value == 0 && c.RedMana.Value == 1);
+            }
+
+            var listCards = request.Select(c => new ResponseCard(c)).ToList();
+
+            if(listCards.Count == 0)
+            {
+                return null;
+            }
+
+            var number = random.Next(0, listCards.Count);
+            var selectedCard = listCards.ElementAt(number);
+            var editionCard = edition.GetEdition(selectedCard.EditionId);
+            selectedCard.EditionName = editionCard.Title;
+
+            return selectedCard;
+        }
+
+        #endregion
 
         public void UpdateCard(RequestCard card)
         {
             if (card.Id != null)
             {
                 var existingCard = _entities.Cards.Single(c => c.Id == card.Id);
-            
+
                 _entities.Cards.Attach(existingCard);
                 existingCard.Title = card.Title;
                 existingCard.Type = card.Type;
@@ -111,7 +100,7 @@ namespace Magic.Helpers
             }
             else
             {
-                _entities.Cards.Add( new Card()
+                _entities.Cards.Add(new Card()
                 {
                     Title = card.Title,
                     Type = card.Type,
@@ -145,6 +134,8 @@ namespace Magic.Helpers
             _entities.SaveChanges();
         }
 
+        #region A revoir
+
         public List<ResponseEnum> GetRarities()
         {
             return _entities.Rarities.Select(r => new ResponseEnum()
@@ -162,7 +153,7 @@ namespace Magic.Helpers
                 Label = r.Label
             }).FirstOrDefault();
         }
-        
+
         public List<ResponseEnum> GetTypes()
         {
             return _entities.Types.Select(r => new ResponseEnum()
@@ -180,5 +171,7 @@ namespace Magic.Helpers
                 Label = t.Label
             }).FirstOrDefault();
         }
+
+        #endregion
     }
 }

@@ -19,22 +19,74 @@ namespace Magic.Helpers
         private string _path;
         private Edition _edition;
 
-        public List<Card> TreatEdition(int editionId)
+        public bool TreatAllNoneTreat()
         {
-            _edition = _entities.Editions.Single(e => e.Id == editionId);
+            try
+            {
+                var cardsNonTreated = _entities.Cards.Where(c => c.IsTreated == false).ToList();
+                TreatCardRecursive(cardsNonTreated);
 
-            var cardsNonTreated = _edition.Cards.Where(c => c.IsTreated == false).Take(10).ToList();
-
-            TreatCardRecursive(cardsNonTreated);
-
-            return _edition.Cards.ToList();
+                return true;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
-        public Card TreatCard(string codeName)
+        public bool SetAllAsNotTreated()
         {
-            var card = _entities.Cards.Single(c => c.CodeName == codeName);
+            try
+            {
+                var cards = _entities.Cards.ToList();
+                cards.ForEach(c => c.IsTreated = false);
 
-            return Treat(card);
+                if (Directory.Exists(_path))
+                {
+                    Directory.Delete(_path, true);
+                }
+
+                _entities.SaveChanges();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public bool TreatEdition(int editionId)
+        {
+            try
+            {
+                _edition = _entities.Editions.Single(e => e.Id == editionId);
+
+                var cardsNonTreated = _edition.Cards.Where(c => c.IsTreated == false).Take(10).ToList();
+
+                TreatCardRecursive(cardsNonTreated);
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public bool TreatCard(string codeName)
+        {
+
+            try
+            {
+                var card = _entities.Cards.Single(c => c.CodeName == codeName);
+
+                return Treat(card);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
         private void TreatCardRecursive(List<Card> cards)
@@ -44,27 +96,27 @@ namespace Magic.Helpers
                 Treat(cardNonTreated);
             }
 
-            var cardsNonTreated = _edition.Cards.Where(c => c.IsTreated == false).Take(10).ToList();
 
-            if (cardsNonTreated.Count > 0)
-            {
-                TreatCardRecursive(cardsNonTreated);
-            }
+            //Je sais plus a quoi ca sert mais un jour ca peut servir :D
+            //var cardsNonTreated = _edition.Cards.Where(c => c.IsTreated == false)?.Take(10)?.ToList();
+
+            //if (cardsNonTreated.Count > 0)
+            //{
+            //    TreatCardRecursive(cardsNonTreated);
+            //}
 
         }
 
-        private Card Treat(Card card)
+        private bool Treat(Card card)
         {
             if (!card.IsTreated)
             {
                 ManageDirectory(card);
                 DownloadAndCrop(card);
-
-                card.IsTreated = true;
                 _entities.SaveChanges();
-                return card;
+                return true;
             }
-            return card;
+            return false;
         }
 
         private void ManageDirectory(Card card)
@@ -97,17 +149,24 @@ namespace Magic.Helpers
                     cardPath = _path + "\\" + card.CodeName + ".jpg";
                     client.DownloadFile(new Uri(card.UrlImage), cardPath);
                 }
-                Bitmap croppedImage;
+                Bitmap croppedImage = null;
 
                 using (var originalImage = new Bitmap(cardPath))
                 {
-                    Rectangle crop = new Rectangle(20, 44, 275, 206);
+                    if (originalImage.Width == 312 && originalImage.Height == 445)
+                    {
+                        Rectangle crop = new Rectangle(20, 44, 275, 206);
 
-                    croppedImage = originalImage.Clone(crop, originalImage.PixelFormat);
+                        croppedImage = originalImage.Clone(crop, originalImage.PixelFormat);
+                    }
                 }
 
-                croppedImage.Save(cardPath, ImageFormat.Jpeg);
-                croppedImage.Dispose();
+                if (croppedImage != null)
+                {
+                    croppedImage.Save(cardPath, ImageFormat.Jpeg);
+                    croppedImage.Dispose();
+                    card.IsTreated = true;
+                }
             }
             catch (Exception e) { throw new Exception(e.Message); }
 

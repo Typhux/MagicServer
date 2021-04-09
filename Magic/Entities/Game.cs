@@ -12,18 +12,14 @@ namespace Magic.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Rarity
+    public partial class Game
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Rarity()
-        {
-            this.Cards = new HashSet<Card>();
-        }
-    
         public int Id { get; set; }
-        public string Label { get; set; }
+        public string Settings { get; set; }
+        public string Guid { get; set; }
+        public int Edition { get; set; }
+        public System.DateTime Date { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Card> Cards { get; set; }
+        public virtual Edition Edition1 { get; set; }
     }
 }

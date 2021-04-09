@@ -12,9 +12,9 @@ namespace Magic.Controllers.API
 
         [Route("api/search")]
         [HttpPost]
-        public List<ResultQueryCard> Post(QueryCard request)
+        public List<ResponseCard> Post(QueryCard request)
         {
-            return _queryHelper.ExecuteQuery(request).ToList();
+            return _queryHelper.ExecuteQuery(request);
         }
         
         [Route("api/search/{codeName}")]

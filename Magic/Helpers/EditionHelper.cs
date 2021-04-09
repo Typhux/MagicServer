@@ -12,46 +12,16 @@ namespace Magic.Helpers
 
         public List<ResponseEdition> GetEditions()
         {
-            return _entities.Editions.Select(e => new ResponseEdition()
-            {
-                Id = e.Id,
-                Title = e.Title,
-                UrlLogo = e.Url_Logo
-            }).ToList();
+            return _entities.Editions.Select(e => new ResponseEdition(e)).ToList();
         }
 
         public ResponseEdition GetEdition(int id)
         {
-            var edition = _entities.Editions.Where(e => e.Id == id).Select(e => new ResponseEdition()
-            {
-                Id = e.Id,
-                Title = e.Title,
-                UrlLogo = e.Url_Logo
-            }).FirstOrDefault() ;
+            var edition = _entities.Editions.Where(e => e.Id == id).Select(e => new ResponseEdition(e)).FirstOrDefault();
 
             if (edition != null)
             {
-                edition.Cards = _entities.Cards.Where(c => c.EditionId == id).Select(c => new ResponseCard()
-                {
-                    Id = c.Id,
-                    Title = c.Title,
-                    Type = c.Type,
-                    SubType = c.SubType,
-                    BlueMana = c.BlueMana,
-                    GreenMana = c.GreenMana,
-                    WhiteMana = c.WhiteMana,
-                    BlackMana = c.BlackMana,
-                    RedMana = c.RedMana,
-                    NeutralMana = c.NeutralMana,
-                    Rarity = c.Rarity,
-                    Mechanic = c.Mechanic,
-                    CodeName = c.CodeName,
-                    Power = c.Power,
-                    Defense = c.Defense,
-                    EditionId = c.EditionId,
-                    Commentary = c.Commentary,
-                    UrlImage = c.UrlImage
-                }).ToList();
+                edition.Cards = _entities.Cards.Where(c => c.EditionId == id).Select(c => new ResponseCard(c)).ToList();
             }
 
             return edition;
@@ -65,12 +35,17 @@ namespace Magic.Helpers
                 _entities.Editions.Attach(existingEdition);
                 existingEdition.Title = edition.Title;
                 existingEdition.Url_Logo = edition.UrlLogo;
+                existingEdition.Description = edition.Description;
+                existingEdition.Subtitle = edition.SubTitle;
+
             }else
             {
                 _entities.Editions.Add(new Edition
                 {
                     Title = edition.Title,
-                    Url_Logo = edition.UrlLogo
+                    Url_Logo = edition.UrlLogo,
+                    Description = edition.Description,
+                    Subtitle = edition.SubTitle
                 });
             }
             _entities.SaveChanges();
@@ -85,5 +60,15 @@ namespace Magic.Helpers
 
             _entities.SaveChanges();
         }
+
+        #region A virer
+
+        public string GetLogoById(int id)
+        {
+            var edition = _entities.Editions.Where(e => e.Id == id).FirstOrDefault();
+            return edition.Url_Logo;
+        }
+
+        #endregion
     }
 }

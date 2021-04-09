@@ -35,6 +35,9 @@
     <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Url_Logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Cards" Relationship="MagicModel.FK_Card_Edition" FromRole="Edition" ToRole="Card" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Subtitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Games" Relationship="MagicModel.FK_Game_Edition" FromRole="Edition" ToRole="Game" />
   </EntityType>
   <EntityContainer Name="MagicEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Cards" EntityType="Self.Card" />
@@ -52,6 +55,11 @@
     <AssociationSet Name="FK_Card_Type" Association="MagicModel.FK_Card_Type">
       <End Role="Type" EntitySet="Types" />
       <End Role="Card" EntitySet="Cards" />
+    </AssociationSet>
+    <EntitySet Name="Games" EntityType="MagicModel.Game" />
+    <AssociationSet Name="FK_Game_Edition" Association="MagicModel.FK_Game_Edition">
+      <End Role="Edition" EntitySet="Editions" />
+      <End Role="Game" EntitySet="Games" />
     </AssociationSet>
   </EntityContainer>
   <Association Name="FK_Card_Edition">
@@ -103,6 +111,29 @@
       </Principal>
       <Dependent Role="Card">
         <PropertyRef Name="Type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Game">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Settings" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Guid" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Edition" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Edition1" Relationship="MagicModel.FK_Game_Edition" FromRole="Game" ToRole="Edition" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+  </EntityType>
+  <Association Name="FK_Game_Edition">
+    <End Type="MagicModel.Edition" Role="Edition" Multiplicity="1" />
+    <End Type="MagicModel.Game" Role="Game" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Edition">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Game">
+        <PropertyRef Name="Edition" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

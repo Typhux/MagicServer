@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -124,6 +125,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\API\GameController.cs" />
     <Compile Include="Controllers\API\TreatmentController.cs" />
     <Compile Include="Controllers\API\SearchController.cs" />
     <Compile Include="Controllers\API\CardController.cs" />
@@ -135,6 +137,9 @@
     <Compile Include="Entities\Edition.cs">
       <DependentUpon>Magic.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Game.cs">
+      <DependentUpon>Magic.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\Rarity.cs">
       <DependentUpon>Magic.tt</DependentUpon>
     </Compile>
@@ -144,6 +149,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CharacterHelper.cs" />
+    <Compile Include="Helpers\TileHelper.cs" />
+    <Compile Include="Helpers\GameHelper.cs" />
     <Compile Include="Helpers\TreatmentHelper.cs" />
     <Compile Include="Helpers\QueryHelper.cs" />
     <Compile Include="Helpers\CardHelper.cs" />
@@ -163,6 +171,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Magic.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Game\Tile.cs" />
+    <Compile Include="Models\Game\Character.cs" />
+    <Compile Include="Models\Game\Settings.cs" />
+    <Compile Include="Models\Game\ResponseGame.cs" />
     <Compile Include="Models\QueryCard.cs" />
     <Compile Include="Models\ResultQueryCard.cs" />
     <Compile Include="Models\RequestCard.cs" />
@@ -179,7 +191,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="images\" />
+    <Folder Include="Engine\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

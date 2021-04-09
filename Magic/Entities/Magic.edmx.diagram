@@ -12,6 +12,8 @@
         <EntityTypeShape EntityType="MagicModel.Type" Width="1.5" PointX="0.75" PointY="7.25" />
         <AssociationConnector Association="MagicModel.FK_Card_Rarity" />
         <AssociationConnector Association="MagicModel.FK_Card_Type" />
+        <EntityTypeShape EntityType="MagicModel.Game" Width="1.5" PointX="8.375" PointY="5.5" />
+        <AssociationConnector Association="MagicModel.FK_Game_Edition" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,9 +1,39 @@
-﻿using Newtonsoft.Json;
+﻿using Magic.Entities;
+using Magic.Helpers;
+using Newtonsoft.Json;
 
 namespace Magic.Models
 {
     public class ResponseCard
     {
+
+        private readonly EditionHelper edition = new EditionHelper();
+
+        public ResponseCard(Card c)
+        {
+            Id = c.Id;
+            Title = c.Title;
+            Type = c.Type;
+            SubType = c.SubType;
+            BlueMana = c.BlueMana;
+            GreenMana = c.GreenMana;
+            WhiteMana = c.WhiteMana;
+            BlackMana = c.BlackMana;
+            RedMana = c.RedMana;
+            NeutralMana = c.NeutralMana;
+            Rarity = c.Rarity;
+            Mechanic = c.Mechanic;
+            CodeName = c.CodeName;
+            Power = c.Power;
+            Defense = c.Defense;
+            EditionId = c.EditionId;
+            Commentary = c.Commentary;
+            UrlImage = c.UrlImage;
+            IsTreated = c.IsTreated;
+            EditionLogo = edition.GetLogoById(c.EditionId);
+            EditionName = edition.GetEdition(c.EditionId).Title;
+        }
+
         [JsonProperty("id")]
         public int Id;
 
@@ -57,5 +87,14 @@ namespace Magic.Models
 
         [JsonProperty("urlImage")]
         public string UrlImage;
+
+        [JsonProperty("isTreated")]
+        public bool IsTreated;
+
+        [JsonProperty("editionLogo")]
+        public string EditionLogo;
+
+        [JsonProperty("editionName")]
+        public string EditionName;
     }
 }

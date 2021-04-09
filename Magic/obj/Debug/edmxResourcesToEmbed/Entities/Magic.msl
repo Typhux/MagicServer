@@ -29,6 +29,8 @@
     <EntitySetMapping Name="Editions">
       <EntityTypeMapping TypeName="MagicModel.Edition">
         <MappingFragment StoreEntitySet="Edition">
+          <ScalarProperty Name="Subtitle" ColumnName="Subtitle" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Url_Logo" ColumnName="Url_Logo" />
@@ -47,6 +49,17 @@
       <EntityTypeMapping TypeName="MagicModel.Type">
         <MappingFragment StoreEntitySet="Type">
           <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Games">
+      <EntityTypeMapping TypeName="MagicModel.Game">
+        <MappingFragment StoreEntitySet="Game">
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Edition" ColumnName="Edition" />
+          <ScalarProperty Name="Guid" ColumnName="Guid" />
+          <ScalarProperty Name="Settings" ColumnName="Settings" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

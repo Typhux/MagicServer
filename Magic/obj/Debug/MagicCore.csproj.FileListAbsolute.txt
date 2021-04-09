@@ -28,7 +28,8 @@ C:\workspace\MagicServer\Magic\bin\System.Net.Http.Formatting.xml
 C:\workspace\MagicServer\Magic\bin\System.Web.Http.xml
 C:\workspace\MagicServer\Magic\bin\System.Web.Http.WebHost.xml
 C:\workspace\MagicServer\Magic\bin\fr\EntityFramework.resources.dll
-C:\workspace\MagicServer\Magic\bin\fr\EntityFramework.SqlServer.resources.dll
-C:\workspace\MagicServer\Magic\obj\Debug\MagicCore.csprojResolveAssemblyReference.cache
 C:\workspace\MagicServer\Magic\obj\Debug\Magic.dll
 C:\workspace\MagicServer\Magic\obj\Debug\Magic.pdb
+C:\workspace\MagicServer\Magic\obj\Debug\MagicCore.csproj.CoreCompileInputs.cache
+C:\workspace\MagicServer\Magic\obj\Debug\MagicCore.csproj.CopyComplete
+C:\workspace\MagicServer\Magic\obj\Debug\MagicCore.csprojAssemblyReference.cache

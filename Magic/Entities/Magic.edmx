@@ -36,6 +36,18 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="varchar(max)" Nullable="false" />
           <Property Name="Url_Logo" Type="varchar(max)" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="Subtitle" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Game">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Settings" Type="varchar(max)" Nullable="false" />
+          <Property Name="Guid" Type="varchar(max)" Nullable="false" />
+          <Property Name="Edition" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="Rarity">
           <Key>
@@ -43,16 +55,6 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Label" Type="varchar(max)" Nullable="false" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Type">
           <Key>
@@ -99,11 +101,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Game_Edition">
+          <End Role="Edition" Type="Self.Edition" Multiplicity="1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Edition">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="Edition" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="MagicModelStoreContainer">
           <EntitySet Name="Card" EntityType="Self.Card" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Edition" EntityType="Self.Edition" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Game" EntityType="Self.Game" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rarity" EntityType="Self.Rarity" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Card_Edition" Association="Self.FK_Card_Edition">
             <End Role="Edition" EntitySet="Edition" />
@@ -116,6 +130,10 @@
           <AssociationSet Name="FK_Card_Type" Association="Self.FK_Card_Type">
             <End Role="Type" EntitySet="Type" />
             <End Role="Card" EntitySet="Card" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Game_Edition" Association="Self.FK_Game_Edition">
+            <End Role="Edition" EntitySet="Edition" />
+            <End Role="Game" EntitySet="Game" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -157,6 +175,9 @@
           <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Url_Logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Cards" Relationship="MagicModel.FK_Card_Edition" FromRole="Edition" ToRole="Card" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Subtitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Games" Relationship="MagicModel.FK_Game_Edition" FromRole="Edition" ToRole="Game" />
         </EntityType>
         <EntityContainer Name="MagicEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Cards" EntityType="Self.Card" />
@@ -174,6 +195,11 @@
           <AssociationSet Name="FK_Card_Type" Association="MagicModel.FK_Card_Type">
             <End Role="Type" EntitySet="Types" />
             <End Role="Card" EntitySet="Cards" />
+          </AssociationSet>
+          <EntitySet Name="Games" EntityType="MagicModel.Game" />
+          <AssociationSet Name="FK_Game_Edition" Association="MagicModel.FK_Game_Edition">
+            <End Role="Edition" EntitySet="Editions" />
+            <End Role="Game" EntitySet="Games" />
           </AssociationSet>
         </EntityContainer>
         <Association Name="FK_Card_Edition">
@@ -228,6 +254,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Game">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Settings" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Guid" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Edition" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Edition1" Relationship="MagicModel.FK_Game_Edition" FromRole="Game" ToRole="Edition" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <Association Name="FK_Game_Edition">
+          <End Type="MagicModel.Edition" Role="Edition" Multiplicity="1" />
+          <End Type="MagicModel.Game" Role="Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Edition">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="Edition" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -262,6 +311,8 @@
           <EntitySetMapping Name="Editions">
             <EntityTypeMapping TypeName="MagicModel.Edition">
               <MappingFragment StoreEntitySet="Edition">
+                <ScalarProperty Name="Subtitle" ColumnName="Subtitle" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Url_Logo" ColumnName="Url_Logo" />
@@ -280,6 +331,17 @@
             <EntityTypeMapping TypeName="MagicModel.Type">
               <MappingFragment StoreEntitySet="Type">
                 <ScalarProperty Name="Label" ColumnName="Label" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Games">
+            <EntityTypeMapping TypeName="MagicModel.Game">
+              <MappingFragment StoreEntitySet="Game">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Edition" ColumnName="Edition" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="Settings" ColumnName="Settings" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
