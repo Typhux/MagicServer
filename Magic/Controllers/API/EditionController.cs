@@ -24,6 +24,13 @@ namespace Magic.Controllers.API
             return _editionHelper.GetEdition(id);
         }
 
+        [Route("api/edition/{id}/{research}")]
+        [HttpGet]
+        public List<ResponseCard> Get(int id, string research)
+        {
+            return _editionHelper.ResearchCard(id, research);
+        }
+
         [Route("api/edition")]
         [HttpPost]
         public void Post([FromBody]RequestEdition value)

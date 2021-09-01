@@ -1,47 +1,62 @@
 ﻿using Magic.Entities;
-using Magic.Helpers;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Magic.Models
 {
     public class ResponseCard
     {
 
-        private readonly EditionHelper edition = new EditionHelper();
-
-        public ResponseCard(Card c)
+        public ResponseCard(Card card)
         {
-            Id = c.Id;
-            Title = c.Title;
-            Type = c.Type;
-            SubType = c.SubType;
-            BlueMana = c.BlueMana;
-            GreenMana = c.GreenMana;
-            WhiteMana = c.WhiteMana;
-            BlackMana = c.BlackMana;
-            RedMana = c.RedMana;
-            NeutralMana = c.NeutralMana;
-            Rarity = c.Rarity;
-            Mechanic = c.Mechanic;
-            CodeName = c.CodeName;
-            Power = c.Power;
-            Defense = c.Defense;
-            EditionId = c.EditionId;
-            Commentary = c.Commentary;
-            UrlImage = c.UrlImage;
-            IsTreated = c.IsTreated;
-            EditionLogo = edition.GetLogoById(c.EditionId);
-            EditionName = edition.GetEdition(c.EditionId).Title;
+
+            if (card != null)
+            {
+                Id = card.Id;
+                Title = card.Title;
+                Type = (TypeCard)card.Type;
+                SubType = card.SubType;
+                BlueMana = card.BlueMana;
+                GreenMana = card.GreenMana;
+                WhiteMana = card.WhiteMana;
+                BlackMana = card.BlackMana;
+                RedMana = card.RedMana;
+                NeutralMana = card.NeutralMana;
+                Rarity = card.Rarity;
+                Mechanic = card.Mechanic;
+                CodeName = card.CodeName;
+                Power = card.Power;
+                EditionId = card.EditionId;
+                Commentary = card.Commentary;
+                UrlImage = card.UrlImage;
+                IsTreated = card.IsTreated;
+                Defense = card.Defense;
+                RestingHealthPoint = card.Defense;
+                Skill = new List<string>();
+                UniqueId = Guid.NewGuid().ToString();
+
+                if (!string.IsNullOrEmpty(card.Skill))
+                {
+                    Skill = card.Skill.Split(';').ToList();
+                }
+            }
         }
 
         [JsonProperty("id")]
         public int Id;
 
+        [JsonProperty("uniqueId")]
+        public string UniqueId;
+
         [JsonProperty("title")]
         public string Title;
 
         [JsonProperty("type")]
-        public int Type;
+        [JsonConverter(typeof(StringEnumConverter))]
+        public TypeCard Type;
 
         [JsonProperty("subType")]
         public string SubType;
@@ -76,9 +91,6 @@ namespace Magic.Models
         [JsonProperty("power")]
         public int Power;
 
-        [JsonProperty("defense")]
-        public int Defense;
-
         [JsonProperty("editionId")]
         public int EditionId;
 
@@ -96,5 +108,50 @@ namespace Magic.Models
 
         [JsonProperty("editionName")]
         public string EditionName;
+
+        [JsonProperty("defense")]
+        public int Defense;
+
+        [JsonProperty("restingHealthPoint")]
+        public int RestingHealthPoint;
+
+        [JsonProperty("skill")]
+        public List<string> Skill;
+
+        [JsonProperty("asPlayed")]
+        public bool AsPlayed;
+
+        [JsonProperty("removed")]
+        public bool Removed;
+
+        [JsonProperty("resolved")]
+        public ResponseCard Resolved;
+
+        [JsonProperty("rewarded")]
+        public string Rewarded;
+
+        [JsonProperty("onAttack")]
+        public bool OnAttack;
+
+        [JsonProperty("onInvoke")]
+        public bool OnInvoke;
+
+        [JsonProperty("onInvokeEnemy")]
+        public bool OnInvokeEnemy;
+
+        [JsonProperty("onCastEnchant")]
+        public bool OnCastEnchant;
+
+        [JsonProperty("eachTurn")]
+        public bool EachTurn;
+
+        [JsonProperty("specialBool")]
+        public bool SpecialBool;
+
+        [JsonProperty("unEquipped")]
+        public bool Unequipped;
+
+        [JsonProperty("equipped")]
+        public bool Equipped;
     }
 }

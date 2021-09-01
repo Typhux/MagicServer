@@ -33,6 +33,7 @@ namespace Magic.Entities
         public string Commentary { get; set; }
         public string UrlImage { get; set; }
         public bool IsTreated { get; set; }
+        public string Skill { get; set; }
     
         public virtual Edition Edition { get; set; }
         public virtual Rarity Rarity1 { get; set; }

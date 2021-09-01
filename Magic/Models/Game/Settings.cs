@@ -17,7 +17,12 @@ namespace Magic.Models
             var settings = new Settings
             {
                 Tiles = CreateNeWGameTiles(),
-                Items = new List<ResponseCard>()
+                Items = new List<ResponseCard>(),
+                Spells = new List<ResponseCard>(),
+                Logs = new List<string>(),
+                ActionPanels = new List<ActionPanel>(),
+                Fight = string.Empty,
+                CurrentTurn = 0
             };
 
             settings.Character = characterHelper.NewCharacter(tileHelper.GetStartTile(settings.Tiles));
@@ -30,22 +35,39 @@ namespace Magic.Models
         [JsonProperty("items")]
         public List<ResponseCard> Items;
 
+        [JsonProperty("spells")]
+        public List<ResponseCard> Spells;
+
         [JsonProperty("character")]
         public Character Character;
 
+        [JsonProperty("fight")]
+        public string Fight;
+
+        [JsonProperty("logs")]
+        public List<string> Logs;
+
+        [JsonProperty("currentTurn")]
+        public int CurrentTurn;
+
+        [JsonProperty("actionPanels")]
+        public List<ActionPanel> ActionPanels;
+
         private List<Tile> CreateNeWGameTiles()
         {
-            return new List<Tile> { 
-            new Tile(-1, -1),
-            new Tile(0, -1),
-            new Tile(1, -1),
-            new Tile(-1, 0),
-            new Tile(0, 0, true),
-            new Tile(1, 0),
-            new Tile(-1, 1),
-            new Tile(0, 1),
-            new Tile(1, 1),
-            };
+            var tileList = new List<Tile>();
+
+            tileList.Add(tileHelper.CreateTile(-1, -1, true));
+            tileList.Add(tileHelper.CreateTile(0, -1, true));
+            tileList.Add(tileHelper.CreateTile(1, -1, true));
+            tileList.Add(tileHelper.CreateTile(-1, 0, true));
+            tileList.Add(tileHelper.CreateTile(0, 0, true, true));
+            tileList.Add(tileHelper.CreateTile(1, 0, true));
+            tileList.Add(tileHelper.CreateTile(-1, 1, true));
+            tileList.Add(tileHelper.CreateTile(0, 1, true));
+            tileList.Add(tileHelper.CreateTile(1, 1, true));
+
+            return tileList;
         }
     }
 }

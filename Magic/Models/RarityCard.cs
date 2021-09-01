@@ -1,6 +1,6 @@
 ﻿namespace Magic.Models
 {
-    public enum Rarity
+    public enum RarityCard
     {
         Common = 0,
         Uncommon = 1,

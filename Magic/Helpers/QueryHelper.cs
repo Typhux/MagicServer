@@ -8,17 +8,44 @@ namespace Magic.Helpers
     public class QueryHelper
     {
         private readonly MagicEntities _entities = new MagicEntities();
+        private readonly EditionHelper editionHelper = new EditionHelper();
 
         public List<ResponseCard> ExecuteQuery(QueryCard request)
         {
             var query = CreateQueryCard(request);
 
-            return query.Select(c => new ResponseCard(c)).ToList();
+            var cardList = query.AsEnumerable().Select(c => new ResponseCard(c)).ToList();
+
+            var cardForEditionId = cardList.FirstOrDefault();
+
+            if (cardForEditionId != null)
+            {
+
+                var edition = editionHelper.GetEdition(cardForEditionId.EditionId);
+
+                foreach (var card in cardList)
+                {
+                    card.EditionName = edition.Title;
+                    card.EditionLogo = edition.UrlLogo;
+                }
+            }
+
+            return cardList;
         }
 
         public List<ResponseCard> GetCardByCodeName(string request)
         {
-            return _entities.Cards.Where(c => c.CodeName == request).Select(c => new ResponseCard(c)).ToList();
+            var cardList = _entities.Cards.Where(c => c.CodeName == request).AsEnumerable().Select(c => new ResponseCard(c)).ToList();
+
+            var edition = editionHelper.GetEdition(cardList.FirstOrDefault().EditionId);
+
+            foreach (var card in cardList)
+            {
+                card.EditionName = edition.Title;
+                card.EditionLogo = edition.UrlLogo;
+            }
+
+            return cardList;
         }
 
         #region A mettre dans le drawEngine

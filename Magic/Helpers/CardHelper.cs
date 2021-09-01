@@ -11,17 +11,32 @@ namespace Magic.Helpers
         private readonly MagicEntities _entities = new MagicEntities();
 
         //Va virer avec le code du DrawEngine
-        private readonly EditionHelper edition = new EditionHelper();
+        private readonly EditionHelper editionHelper = new EditionHelper();
 
         // Revoir avec le passage en param du nombre de carte desire
         public List<ResponseCard> GetLatestCards()
         {
-            return _entities.Cards.Select(c => new ResponseCard(c)).OrderByDescending(c => c.Id).Take(20).ToList();
+            var listCard = _entities.Cards.AsEnumerable().Select(c => new ResponseCard(c)).OrderByDescending(c => c.EditionId).Take(20).ToList();
+            
+            foreach(var card in listCard)
+            {
+                var edition = editionHelper.GetEdition(card.EditionId);
+                card.EditionLogo = edition.UrlLogo;
+                card.EditionName = edition.Title;
+            }
+
+            return listCard;
         }
 
         public ResponseCard GetCard(int id)
         {
-            return _entities.Cards.Where(c => c.Id == id).Select(c => new ResponseCard(c)).FirstOrDefault();
+            var card = _entities.Cards.Where(c => c.Id == id).AsEnumerable().Select(c => new ResponseCard(c)).FirstOrDefault();
+
+            var edition = editionHelper.GetEdition(card.EditionId);
+            card.EditionName = edition.Title;
+            card.EditionLogo = edition.UrlLogo;
+
+            return card;
         }
 
         #region A mettre dans le DrawEnigne
@@ -29,34 +44,34 @@ namespace Magic.Helpers
         public ResponseCard GetCardForLand(int rarity, string land)
         {
             var random = new Random();
-            var request = _entities.Cards.Where(c => c.Rarity == rarity);
+            var request = _entities.Cards.Where(c => c.Rarity == rarity && c.Type == (int)TypeCard.Creature);
 
-            if (land == "Plain")
+            if (land == Land.Plain.ToString())
             {
                 request = request.Where(c => c.WhiteMana.Value == 1 && c.NeutralMana.Value == 0 && c.BlueMana.Value == 0 && c.GreenMana.Value == 0 && c.BlackMana.Value == 0 && c.RedMana.Value == 0);
             }
 
-            if (land == "Island")
+            if (land == Land.Island.ToString())
             {
                 request = request.Where(c => c.WhiteMana.Value == 0 && c.NeutralMana.Value == 0 && c.BlueMana.Value == 1 && c.GreenMana.Value == 0 && c.BlackMana.Value == 0 && c.RedMana.Value == 0);
             }
 
-            if (land == "Forest")
+            if (land == Land.Forest.ToString())
             {
                 request = request.Where(c => c.WhiteMana.Value == 0 && c.NeutralMana.Value == 0 && c.BlueMana.Value == 0 && c.GreenMana.Value == 1 && c.BlackMana.Value == 0 && c.RedMana.Value == 0);
             }
 
-            if (land == "Swamp")
+            if (land == Land.Swamp.ToString())
             {
                 request = request.Where(c => c.WhiteMana.Value == 0 && c.NeutralMana.Value == 0 && c.BlueMana.Value == 0 && c.GreenMana.Value == 0 && c.BlackMana.Value == 1 && c.RedMana.Value == 0);
             }
 
-            if (land == "Mountain")
+            if (land == Land.Mountain.ToString())
             {
                 request = request.Where(c => c.WhiteMana.Value == 0 && c.NeutralMana.Value == 0 && c.BlueMana.Value == 0 && c.GreenMana.Value == 0 && c.BlackMana.Value == 0 && c.RedMana.Value == 1);
             }
 
-            var listCards = request.Select(c => new ResponseCard(c)).ToList();
+            var listCards = request.AsEnumerable().Select(c => new ResponseCard(c)).ToList();
 
             if(listCards.Count == 0)
             {
@@ -65,13 +80,149 @@ namespace Magic.Helpers
 
             var number = random.Next(0, listCards.Count);
             var selectedCard = listCards.ElementAt(number);
-            var editionCard = edition.GetEdition(selectedCard.EditionId);
+            var editionCard = editionHelper.GetEdition(selectedCard.EditionId);
             selectedCard.EditionName = editionCard.Title;
+            selectedCard.UniqueId = Guid.NewGuid().ToString();
 
             return selectedCard;
         }
 
+        public ResponseCard GetCardByType(int type)
+        {
+            var random = new Random();
+            var request = _entities.Cards.Where(c => c.Type == type);
+            var listCards = request.AsEnumerable().Select(c => new ResponseCard(c)).ToList();
+            var number = random.Next(0, listCards.Count);
+            var selectedCard = listCards.ElementAt(number);
+            var editionCard = editionHelper.GetEdition(selectedCard.EditionId);
+            selectedCard.EditionName = editionCard.Title;
+            selectedCard.UniqueId = Guid.NewGuid().ToString();
+
+            return selectedCard;
+
+        }
+
+        public List<ResponseCard> GetArtifacts()
+        {
+            var random = new Random();
+
+            var listCards = _entities.Cards.Where(c => c.Type == (int)TypeCard.Artifact).AsEnumerable().Select(c => new ResponseCard(c)).ToList();
+            var rewardCards = new List<ResponseCard>();
+            for (var i = 0; i < 3; i++)
+            {
+                var number = random.Next(0, listCards.Count);
+                var selectedCard = listCards.ElementAt(number);
+                selectedCard.EditionName = "Origins";
+                rewardCards.Add(selectedCard);
+                listCards.Remove(selectedCard);
+            }
+            return rewardCards;
+        }
+
+        public List<ResponseCard> GetCardReward(Character character, string land, int idEdition)
+        {
+            int rarity;
+            var random = new Random();
+
+            var rand = random.Next(1, 101);
+
+            //Commom 60%
+            //Uncommon 20%
+            //Rare 15%
+            //Mythic 5%
+
+
+            if (rand <= 60)
+            {
+                //Commom
+                rarity = (int)RarityCard.Common;
+            }
+            else if (rand <= 80)
+            {
+                //Uncommon
+                rarity = (int)RarityCard.Uncommon;
+            }
+            else if (rand <= 95)
+            {
+                //Rare
+                rarity = (int)RarityCard.Rare;
+            }
+            else
+            {
+                //Mythic
+                rarity = (int)RarityCard.Mythic;
+            }
+
+            var listCards = _entities.Cards.Where(c => c.Rarity == rarity && (c.Type == (int)TypeCard.Enchantment || c.Type == (int)TypeCard.Instant || c.Type == (int)TypeCard.Ritual )).AsEnumerable().Select(c => new ResponseCard(c)).ToList();
+            listCards = listCards.Where(c => c.BlueMana + c.BlackMana + c.GreenMana + c.RedMana + c.WhiteMana + c.NeutralMana <= character.Level).ToList();
+
+            if (land == Land.Plain.ToString())
+            {
+                listCards = listCards.Where(c => c.WhiteMana.Value <= character.WhiteMana + 1 && c.NeutralMana.Value == 0 && c.BlueMana.Value == 0 && c.GreenMana.Value == 0 && c.BlackMana.Value == 0 && c.RedMana.Value == 0).ToList();
+            }
+
+            if (land == Land.Island.ToString())
+            {
+                listCards = listCards.Where(c => c.WhiteMana.Value == 0 && c.NeutralMana.Value == 0 && c.BlueMana.Value <= character.BlueMana + 1 && c.GreenMana.Value == 0 && c.BlackMana.Value == 0 && c.RedMana.Value == 0).ToList();
+            }
+
+            if (land == Land.Forest.ToString())
+            {
+                listCards = listCards.Where(c => c.WhiteMana.Value == 0 && c.NeutralMana.Value == 0 && c.BlueMana.Value == 0 && c.GreenMana.Value <= character.GreenMana + 1 && c.BlackMana.Value == 0 && c.RedMana.Value == 0).ToList();
+            }
+
+            if (land == Land.Swamp.ToString())
+            {
+                listCards = listCards.Where(c => c.WhiteMana.Value == 0 && c.NeutralMana.Value == 0 && c.BlueMana.Value == 0 && c.GreenMana.Value == 0 && c.BlackMana.Value <= character.BlackMana + 1 && c.RedMana.Value == 0).ToList();
+            }
+
+            if (land == Land.Mountain.ToString())
+            {
+                listCards = listCards.Where(c => c.WhiteMana.Value == 0 && c.NeutralMana.Value == 0 && c.BlueMana.Value == 0 && c.GreenMana.Value == 0 && c.BlackMana.Value == 0 && c.RedMana.Value <= character.RedMana + 1).ToList();
+            }
+
+
+            if (listCards.Count == 0)
+            {
+                listCards = GetCardReward(character, land, idEdition);
+            }
+
+            var rewardCards = new List<ResponseCard>();
+
+            if (listCards.Count > 3)
+            {
+                for (var i = 0; i < 3; i++) {
+                    var number = random.Next(0, listCards.Count);
+                    var selectedCard = listCards.ElementAt(number);
+                    selectedCard.EditionName = "Origins";
+                    rewardCards.Add(selectedCard);
+                    listCards.Remove(selectedCard);
+                }
+                return rewardCards;
+            }
+            else
+            {
+                foreach(var card in listCards)
+                {
+                    card.EditionName = "Origins";
+                }
+                return listCards;
+            }
+
+        }
+
         #endregion
+
+        public ResponseCard GetCardByCodeName(string codeName)
+        {
+            var card = _entities.Cards.Where(c => c.CodeName == codeName).AsEnumerable().Select(c => new ResponseCard(c)).FirstOrDefault();
+
+            var edition = editionHelper.GetEdition(card.EditionId);
+            card.EditionName = edition.Title;
+            card.EditionLogo = edition.UrlLogo;
+
+            return card;
+        }
 
         public void UpdateCard(RequestCard card)
         {
@@ -93,10 +244,11 @@ namespace Magic.Helpers
                 existingCard.Mechanic = card.Mechanic;
                 existingCard.CodeName = card.CodeName;
                 existingCard.Power = card.Power;
-                existingCard.Defense = card.Power;
+                existingCard.Defense = card.Defense;
                 existingCard.EditionId = card.EditionId;
                 existingCard.Commentary = card.Commentary;
                 existingCard.UrlImage = card.UrlImage;
+                existingCard.Skill = card.Skill;
             }
             else
             {
@@ -118,7 +270,8 @@ namespace Magic.Helpers
                     Defense = card.Defense,
                     EditionId = card.EditionId,
                     Commentary = card.Commentary,
-                    UrlImage = card.UrlImage
+                    UrlImage = card.UrlImage,
+                    Skill = card.Skill
                 });
             }
             _entities.SaveChanges();

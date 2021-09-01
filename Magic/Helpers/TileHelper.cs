@@ -21,23 +21,23 @@ namespace Magic.Helpers
             switch (random.Next(0, 5))
             {
                 case 0:
-                    land = "Plain";
+                    land = Land.Plain.ToString();
                     break;
 
                 case 1:
-                    land = "Island";
+                    land = Land.Island.ToString();
                     break;
 
                 case 2:
-                    land = "Forest";
+                    land = Land.Forest.ToString();
                     break;
 
                 case 3:
-                    land = "Mountain";
+                    land = Land.Mountain.ToString();
                     break;
 
                 case 4:
-                    land = "Swamp";
+                    land = Land.Swamp.ToString();
                     break;
             }
 
@@ -65,22 +65,22 @@ namespace Magic.Helpers
                 if (rand <= 60)
                 {
                     //Commom
-                    rarity = 0;
+                    rarity = (int)RarityCard.Common;
                 }
                 else if (rand <= 80)
                 {
                     //Uncommon
-                    rarity = 1;
+                    rarity = (int)RarityCard.Uncommon;
                 }
                 else if (rand <= 95)
                 {
                     //Rare
-                    rarity = 2;
+                    rarity = (int)RarityCard.Rare;
                 }
                 else
                 {
                     //Mythic
-                    rarity = 3;
+                    rarity = (int)RarityCard.Mythic;
                 }
             }
 
@@ -99,6 +99,46 @@ namespace Magic.Helpers
         public Tile GetStartTile(List<Tile> tiles)
         {
             return tiles.Where(t => t.IsStart).FirstOrDefault();
+        }
+
+        public Tile CreateTile(int latitude, int longitude, bool isBeginning = false, bool isStart = false)
+        {
+            var tile = new Tile
+            {
+                Guid = Guid.NewGuid().ToString(),
+                Land = RandomLand(),
+                Latitude = latitude,
+                Longitude = longitude,
+                IsStart = isStart,
+                IsActual = isStart,
+                IsExplored = true,
+                Event = new List<ResponseCard>()
+            };
+
+            if (!isStart)
+            {
+                tile.Event.Add(RandomCard(tile.Land, true));
+                tile.IsExplored = false;
+            }
+
+            return tile;
+        }
+
+        public List<Tile> GetResponseTiles(List<Tile> tiles)
+        {
+            var listTile = new List<Tile>();
+
+            var actualTile = tiles.Find(t => t.IsActual);
+
+            for (var i = actualTile.Latitude - 1; i <= actualTile.Latitude + 1; i++)
+            {
+                for (var j = actualTile.Longitude - 1; j <= actualTile.Longitude + 1; j++)
+                {
+                    listTile.Add(tiles.Find(t => t.Latitude == i && t.Longitude == j));
+                }
+            }
+
+            return listTile;
         }
     }
 }

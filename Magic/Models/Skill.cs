@@ -1,0 +1,42 @@
+﻿namespace Magic.Models
+{
+    public enum Skill
+    {
+        FirstStrike,
+        DoubleStrike,
+        Fly,
+        Duel,
+        Dead,
+        Renown,
+        Vigilance,
+        Stun,
+        Flash,
+        Mute,
+        LifeLink,
+        Counter,
+        Weak,
+        Breach,
+        Echo,
+        Prowess,
+        Taunt,
+        Defender,
+        Scry,
+        Trample,
+        Wisdom,
+        Vampire,
+        Indestructible,
+        Deathtouch,
+        Menace,
+        Deathlink,
+        Haste,
+        PBlue,
+        PRed,
+        PGreen,
+        PBlack,
+        PWhite,
+        Reach,
+        Phase,
+        Hire,
+        Blessed
+    }
+}

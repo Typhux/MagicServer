@@ -28,6 +28,7 @@
           <Property Name="Commentary" Type="varchar(max)" />
           <Property Name="UrlImage" Type="varchar(max)" />
           <Property Name="IsTreated" Type="bit" Nullable="false" />
+          <Property Name="Skill" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Edition">
           <Key>
@@ -38,6 +39,16 @@
           <Property Name="Url_Logo" Type="varchar(max)" />
           <Property Name="Description" Type="varchar(max)" />
           <Property Name="Subtitle" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Emulator">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Settings" Type="varchar(max)" Nullable="false" />
+          <Property Name="Guid" Type="varchar(max)" Nullable="false" />
+          <Property Name="Edition" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="Game">
           <Key>
@@ -116,6 +127,7 @@
         <EntityContainer Name="MagicModelStoreContainer">
           <EntitySet Name="Card" EntityType="Self.Card" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Edition" EntityType="Self.Edition" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Emulator" EntityType="Self.Emulator" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Game" EntityType="Self.Game" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rarity" EntityType="Self.Rarity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
@@ -166,6 +178,7 @@
           <NavigationProperty Name="Rarity1" Relationship="MagicModel.FK_Card_Rarity" FromRole="Card" ToRole="Rarity" />
           <NavigationProperty Name="Type1" Relationship="MagicModel.FK_Card_Type" FromRole="Card" ToRole="Type" />
           <Property Name="IsTreated" Type="Boolean" Nullable="false" />
+          <Property Name="Skill" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Edition">
           <Key>
@@ -201,6 +214,7 @@
             <End Role="Edition" EntitySet="Editions" />
             <End Role="Game" EntitySet="Games" />
           </AssociationSet>
+          <EntitySet Name="Emulators" EntityType="MagicModel.Emulator" />
         </EntityContainer>
         <Association Name="FK_Card_Edition">
           <End Type="MagicModel.Edition" Role="Edition" Multiplicity="1" />
@@ -277,6 +291,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Emulator">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Settings" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Guid" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Edition" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -286,6 +310,7 @@
           <EntitySetMapping Name="Cards">
             <EntityTypeMapping TypeName="MagicModel.Card">
               <MappingFragment StoreEntitySet="Card">
+                <ScalarProperty Name="Skill" ColumnName="Skill" />
                 <ScalarProperty Name="IsTreated" ColumnName="IsTreated" />
                 <ScalarProperty Name="UrlImage" ColumnName="UrlImage" />
                 <ScalarProperty Name="Commentary" ColumnName="Commentary" />
@@ -338,6 +363,17 @@
           <EntitySetMapping Name="Games">
             <EntityTypeMapping TypeName="MagicModel.Game">
               <MappingFragment StoreEntitySet="Game">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Edition" ColumnName="Edition" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="Settings" ColumnName="Settings" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Emulators">
+            <EntityTypeMapping TypeName="MagicModel.Emulator">
+              <MappingFragment StoreEntitySet="Emulator">
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Edition" ColumnName="Edition" />
                 <ScalarProperty Name="Guid" ColumnName="Guid" />

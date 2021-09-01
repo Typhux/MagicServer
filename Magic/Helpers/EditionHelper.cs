@@ -12,19 +12,45 @@ namespace Magic.Helpers
 
         public List<ResponseEdition> GetEditions()
         {
-            return _entities.Editions.Select(e => new ResponseEdition(e)).ToList();
+            return _entities.Editions.AsEnumerable().Select(e => new ResponseEdition(e)).ToList();
         }
 
         public ResponseEdition GetEdition(int id)
         {
-            var edition = _entities.Editions.Where(e => e.Id == id).Select(e => new ResponseEdition(e)).FirstOrDefault();
+            var edition = _entities.Editions.Where(e => e.Id == id).AsEnumerable().Select(e => new ResponseEdition(e)).FirstOrDefault();
 
             if (edition != null)
             {
-                edition.Cards = _entities.Cards.Where(c => c.EditionId == id).Select(c => new ResponseCard(c)).ToList();
+                edition.Cards = _entities.Cards.Where(c => c.EditionId == id).AsEnumerable().Select(c => new ResponseCard(c)).ToList();
+                foreach(var card in edition.Cards)
+                {
+                    card.EditionLogo = edition.UrlLogo;
+                    card.EditionName = edition.Title;
+                }
             }
 
             return edition;
+        }
+        public List<ResponseCard> ResearchCard(int id, string research)
+        {
+            var listCards = new List<ResponseCard>();
+            var edition = this.GetEdition(id);
+            if (research != "null")
+            {
+                listCards = edition.Cards.AsEnumerable().Where(c => c.CodeName.ToLower().Contains(research.ToLower())).ToList();
+            }
+            else
+            {
+                listCards = edition.Cards.AsEnumerable().ToList();
+            }
+
+            foreach (var card in listCards)
+            {
+                card.EditionLogo = edition.UrlLogo;
+                card.EditionName = edition.Title;
+            }
+
+            return listCards;
         }
 
         public void UpdateEdition(RequestEdition edition)
@@ -60,15 +86,5 @@ namespace Magic.Helpers
 
             _entities.SaveChanges();
         }
-
-        #region A virer
-
-        public string GetLogoById(int id)
-        {
-            var edition = _entities.Editions.Where(e => e.Id == id).FirstOrDefault();
-            return edition.Url_Logo;
-        }
-
-        #endregion
     }
 }

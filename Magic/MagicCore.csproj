@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Magic</RootNamespace>
     <AssemblyName>Magic</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -25,6 +25,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <Use64BitIISExpress />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -61,6 +62,7 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
@@ -74,8 +76,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
@@ -85,13 +85,13 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -125,16 +125,22 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\API\EmulatorController.cs" />
     <Compile Include="Controllers\API\GameController.cs" />
+    <Compile Include="Controllers\API\FightController.cs" />
     <Compile Include="Controllers\API\TreatmentController.cs" />
     <Compile Include="Controllers\API\SearchController.cs" />
     <Compile Include="Controllers\API\CardController.cs" />
     <Compile Include="Controllers\API\EditionController.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Engine\FightEngine.cs" />
     <Compile Include="Entities\Card.cs">
       <DependentUpon>Magic.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Edition.cs">
+      <DependentUpon>Magic.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Emulator.cs">
       <DependentUpon>Magic.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Game.cs">
@@ -150,6 +156,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CharacterHelper.cs" />
+    <Compile Include="Helpers\PanelHelper.cs" />
+    <Compile Include="Helpers\FightHelper.cs" />
+    <Compile Include="Helpers\EmulatorHelper.cs" />
     <Compile Include="Helpers\TileHelper.cs" />
     <Compile Include="Helpers\GameHelper.cs" />
     <Compile Include="Helpers\TreatmentHelper.cs" />
@@ -171,17 +180,30 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Magic.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Library\Origins.cs" />
+    <Compile Include="Models\Emulator\ResponseEmulator.cs" />
+    <Compile Include="Models\Emulator\SettingsEmulator.cs" />
     <Compile Include="Models\Game\Tile.cs" />
     <Compile Include="Models\Game\Character.cs" />
     <Compile Include="Models\Game\Settings.cs" />
     <Compile Include="Models\Game\ResponseGame.cs" />
+    <Compile Include="Models\ActionPanel.cs" />
+    <Compile Include="Models\Panel\DataPanel.cs" />
+    <Compile Include="Models\Panel\RewardPanel.cs" />
+    <Compile Include="Models\Panel\SelectPanel.cs" />
+    <Compile Include="Models\Panel\ErrorPanel.cs" />
+    <Compile Include="Models\ActionPanelComponent.cs" />
+    <Compile Include="Models\Reward.cs" />
+    <Compile Include="Models\SubType.cs" />
+    <Compile Include="Models\Skill.cs" />
     <Compile Include="Models\QueryCard.cs" />
+    <Compile Include="Models\Land.cs" />
     <Compile Include="Models\ResultQueryCard.cs" />
     <Compile Include="Models\RequestCard.cs" />
     <Compile Include="Models\ResponseCard.cs" />
     <Compile Include="Models\ResponseEnum.cs" />
-    <Compile Include="Models\Type.cs" />
-    <Compile Include="Models\Rarity.cs" />
+    <Compile Include="Models\TypeCard.cs" />
+    <Compile Include="Models\RarityCard.cs" />
     <Compile Include="Models\RequestEdition.cs" />
     <Compile Include="Models\ResponseEdition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -191,7 +213,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Engine\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

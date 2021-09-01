@@ -30,5 +30,6 @@ namespace Magic.Entities
         public virtual DbSet<Rarity> Rarities { get; set; }
         public virtual DbSet<Type> Types { get; set; }
         public virtual DbSet<Game> Games { get; set; }
+        public virtual DbSet<Emulator> Emulators { get; set; }
     }
 }

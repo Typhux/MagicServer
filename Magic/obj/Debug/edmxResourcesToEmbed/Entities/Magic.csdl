@@ -26,6 +26,7 @@
     <NavigationProperty Name="Rarity1" Relationship="MagicModel.FK_Card_Rarity" FromRole="Card" ToRole="Rarity" />
     <NavigationProperty Name="Type1" Relationship="MagicModel.FK_Card_Type" FromRole="Card" ToRole="Type" />
     <Property Name="IsTreated" Type="Boolean" Nullable="false" />
+    <Property Name="Skill" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Edition">
     <Key>
@@ -61,6 +62,7 @@
       <End Role="Edition" EntitySet="Editions" />
       <End Role="Game" EntitySet="Games" />
     </AssociationSet>
+    <EntitySet Name="Emulators" EntityType="MagicModel.Emulator" />
   </EntityContainer>
   <Association Name="FK_Card_Edition">
     <End Type="MagicModel.Edition" Role="Edition" Multiplicity="1" />
@@ -137,4 +139,14 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="Emulator">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Settings" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Guid" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Edition" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+  </EntityType>
 </Schema>

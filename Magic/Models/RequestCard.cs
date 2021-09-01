@@ -20,5 +20,6 @@
         public int EditionId { get; set; }
         public string Commentary { get; set; }
         public string UrlImage { get; set; }
+        public string Skill { get; set; }
     }
 }

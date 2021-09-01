@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Cards">
       <EntityTypeMapping TypeName="MagicModel.Card">
         <MappingFragment StoreEntitySet="Card">
+          <ScalarProperty Name="Skill" ColumnName="Skill" />
           <ScalarProperty Name="IsTreated" ColumnName="IsTreated" />
           <ScalarProperty Name="UrlImage" ColumnName="UrlImage" />
           <ScalarProperty Name="Commentary" ColumnName="Commentary" />
@@ -56,6 +57,17 @@
     <EntitySetMapping Name="Games">
       <EntityTypeMapping TypeName="MagicModel.Game">
         <MappingFragment StoreEntitySet="Game">
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Edition" ColumnName="Edition" />
+          <ScalarProperty Name="Guid" ColumnName="Guid" />
+          <ScalarProperty Name="Settings" ColumnName="Settings" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Emulators">
+      <EntityTypeMapping TypeName="MagicModel.Emulator">
+        <MappingFragment StoreEntitySet="Emulator">
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="Edition" ColumnName="Edition" />
           <ScalarProperty Name="Guid" ColumnName="Guid" />

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Magic.Models
 {
@@ -37,5 +38,30 @@ namespace Magic.Models
 
         [JsonProperty("power")]
         public int Power;
+
+        [JsonProperty("allies")]
+        public List<ResponseCard> Allies;
+
+        [JsonProperty("level")]
+        public int Level;
+
+        [JsonProperty("asPLayed")]
+        public bool AsPlayed;
+
+        [JsonProperty("waiting")]
+        public bool Waiting;
+
+        [JsonProperty("skill")]
+        public List<string> Skill;
+
+        [JsonProperty("enchantements")]
+        public List<ResponseCard> Enchantements;
+
+        [JsonProperty("cardForceToPlay")]
+        public List<ResponseCard> CardForceToPlay;
+
+        [JsonProperty("NbSpellPlayed")]
+        public int NbSpellPlayed;
+
     }
 }
